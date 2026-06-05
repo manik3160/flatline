@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FLATLINE - Verdict Reveal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Serif+Display:ital@0;1&amp;family=Geist+Mono:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#690005",
+                      "barbad": "#F97316",
+                      "on-secondary-fixed-variant": "#454747",
+                      "inverse-on-surface": "#402b29",
+                      "border-default": "#242424",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "on-tertiary": "#003546",
+                      "inverse-surface": "#fedbd6",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "on-primary": "#690005",
+                      "secondary-fixed": "#e2e2e2",
+                      "primary-fixed-dim": "#ffb4ab",
+                      "tertiary-fixed-dim": "#6bd3fd",
+                      "primary-fixed": "#ffdad6",
+                      "jugaad": "#FFD700",
+                      "on-secondary-container": "#b4b5b5",
+                      "on-tertiary-fixed": "#001f2a",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#93000b",
+                      "outline-variant": "#5e3f3b",
+                      "error-container": "#93000a",
+                      "background": "#200f0d",
+                      "tertiary-container": "#249cc4",
+                      "surface-container-lowest": "#1a0a08",
+                      "on-tertiary-container": "#002e3d",
+                      "error": "#ffb4ab",
+                      "surface-dim": "#200f0d",
+                      "surface-container": "#2e1b18",
+                      "on-tertiary-fixed-variant": "#004d64",
+                      "primary": "#ffb4ab",
+                      "antim-sanskar": "#A855F7",
+                      "secondary": "#c6c6c7",
+                      "secondary-container": "#454747",
+                      "surface-container-high": "#392522",
+                      "void": "#080808",
+                      "surface-variant": "#452f2d",
+                      "primary-container": "#ff544a",
+                      "surface-container-low": "#291715",
+                      "on-secondary": "#2f3131",
+                      "surface-tint": "#ffb4ab",
+                      "surface-bright": "#4a3431",
+                      "on-background": "#fedbd6",
+                      "tertiary": "#6bd3fd",
+                      "on-surface": "#fedbd6",
+                      "elevated": "#1A1A1A",
+                      "surface": "#111111",
+                      "inverse-primary": "#c00012",
+                      "tertiary-fixed": "#bde9ff",
+                      "on-surface-variant": "#e8bcb7",
+                      "on-primary-container": "#5c0004",
+                      "surface-container-highest": "#452f2d",
+                      "bach-gaya": "#22C55E",
+                      "outline": "#ae8783",
+                      "on-primary-fixed": "#410002"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "48px"
+              },
+              "fontFamily": {
+                      "scenario-text": [
+                              "DM Serif Display"
+                      ],
+                      "display-xl": [
+                              "Bebas Neue"
+                      ],
+                      "body-base": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "verdict-lg": [
+                              "Bebas Neue"
+                      ],
+                      "timer-mono": [
+                              "Geist Mono"
+                      ]
+              },
+              "fontSize": {
+                      "scenario-text": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl": [
+                              "72px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "verdict-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "timer-mono": [
+                              "32px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .glow-jugaad {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+        .text-glow-jugaad {
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #FFD700;
+            opacity: 0;
+            animation: fall linear infinite;
+        }
+        .confetti.diamond {
+            transform: rotate(45deg);
+        }
+        .confetti.plus {
+            background-color: transparent;
+        }
+        .confetti.plus::before, .confetti.plus::after {
+            content: '';
+            position: absolute;
+            background-color: #FFD700;
+        }
+        .confetti.plus::before {
+            top: 50%; left: 0; right: 0; height: 2px; transform: translateY(-50%);
+        }
+        .confetti.plus::after {
+            left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%);
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-void text-on-surface h-screen w-screen overflow-hidden flex flex-col items-center justify-center relative font-body-base">
+<!-- Confetti Container -->
+<div class="absolute inset-0 pointer-events-none z-0" id="confetti-container"></div>
+<!-- Top AppBar (Suppressed per rules for full-screen immersive state, but maintaining minimal HUD elements) -->
+<div class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-4 pointer-events-none">
+<div class="font-timer-mono text-timer-mono text-jugaad opacity-70">
+            RD: 3/5
+        </div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-jugaad opacity-70">settings</span>
+<span class="material-symbols-outlined text-jugaad opacity-70">emergency</span>
+</div>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 w-full max-w-4xl mx-auto px-gutter flex flex-col items-center justify-center h-full">
+<!-- Verdict Card -->
+<div class="relative w-full border-[3px] border-jugaad bg-surface-container-lowest p-margin-desktop flex flex-col items-center justify-center glow-jugaad">
+<!-- Corner Decorations -->
+<div class="absolute top-0 left-0 w-4 h-4 bg-jugaad transform -translate-x-1/2 -translate-y-1/2 rotate-45"></div>
+<div class="absolute top-0 right-0 w-4 h-4 bg-jugaad transform translate-x-1/2 -translate-y-1/2 rotate-45"></div>
+<div class="absolute bottom-0 left-0 w-4 h-4 bg-jugaad transform -translate-x-1/2 translate-y-1/2 rotate-45"></div>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-jugaad transform translate-x-1/2 translate-y-1/2 rotate-45"></div>
+<!-- Player Info -->
+<div class="font-label-sm text-label-sm text-on-surface-variant tracking-widest uppercase mb-4 opacity-80">
+                Topper_01
+            </div>
+<!-- Verdict Title -->
+<h1 class="font-display-xl text-[120px] leading-none text-jugaad text-glow-jugaad mb-8 uppercase tracking-tighter">
+                JUGAAD
+            </h1>
+<!-- Character Illustration Container -->
+<div class="relative w-64 h-64 mb-8 -mt-12 z-20">
+<!-- Character breaking the frame slightly -->
+<div class="absolute inset-0 bg-jugaad opacity-10 rounded-full blur-xl"></div>
+<img alt="Confident student character illustration" class="w-full h-full object-cover rounded-full border-4 border-void relative z-10" data-alt="A stylized, high-contrast digital illustration of a confident Indian student character. The character is drawn with bold, thick black outlines and vibrant flat colors, reminiscent of modern expressive comic art. They have a smug, knowing expression, arms crossed, standing against a stark minimalist dark background. The lighting highlights their features dramatically, fitting a tense, clinical-noir aesthetic with a pop of bright gold indicating a 'Jugaad' or clever workaround status. 80s anime meets modern graphic novel style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3XJYYmeATsjlaEtbRi2MjWG_4cWQ595CXz5Gi5CurLQ7OKc5i4JqmBz6P7RTl7Wb5mK-ZlIFe1jl8-EhfCp3DZzROjVdER_6nGs17d0hDWWRl0NKY1ed3xXPDPw3pVyx26oG0v8xJ_8AxSGr8jEzHkoVGwmJ3YCT2SPJnI508Oy5JJRn2YYy9H6SMgEHYKshy2r3xkZuLL5ZURNSgbVzf_CcXAMhrXsP6SwTFz4rt3dev4WOiiGTIGXQiNaek4mddYR_JPe1DVn0"/>
+</div>
+<!-- Narration Text -->
+<p class="font-scenario-text text-scenario-text text-center italic text-on-surface max-w-2xl leading-relaxed">
+                "This student has finally realized that the real world isn't a multiple choice question. It's a multiple choice question that you've already failed."
+            </p>
+<!-- Bottom Wordmark -->
+<div class="absolute bottom-4 right-4 font-display-xl text-2xl text-on-surface-variant opacity-50 uppercase tracking-widest">
+                FLATLINE
+            </div>
+</div>
+</main>
+<!-- Script for Confetti Effect -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#FFD700', '#FFA500', '#FFFFE0'];
+            const types = ['diamond', 'plus'];
+            const numConfetti = 50;
+
+            for (let i = 0; i < numConfetti; i++) {
+                const conf = document.createElement('div');
+                const type = types[Math.floor(Math.random() * types.length)];
+                conf.classList.add('confetti', type);
+                
+                conf.style.left = `${Math.random() * 100}vw`;
+                conf.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                conf.style.animationDelay = `${Math.random() * 5}s`;
+                
+                if(type === 'diamond') {
+                    conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                }
+                
+                container.appendChild(conf);
+            }
+        });
+    </script>
+</body></html>

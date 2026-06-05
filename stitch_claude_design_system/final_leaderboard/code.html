@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Flatline - Final Scoreboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Serif+Display&amp;family=Geist+Mono:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Design System Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#4a3431",
+                    "outline-variant": "#5e3f3b",
+                    "background": "#200f0d",
+                    "barbad": "#F97316",
+                    "bach-gaya": "#22C55E",
+                    "elevated": "#1A1A1A",
+                    "tertiary-fixed": "#bde9ff",
+                    "surface-tint": "#ffb4ab",
+                    "outline": "#ae8783",
+                    "inverse-on-surface": "#402b29",
+                    "surface-dim": "#200f0d",
+                    "surface-container-lowest": "#1a0a08",
+                    "error-container": "#93000a",
+                    "primary": "#ffb4ab",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "on-secondary-container": "#b4b5b5",
+                    "inverse-surface": "#fedbd6",
+                    "tertiary": "#6bd3fd",
+                    "jugaad": "#FFD700",
+                    "inverse-primary": "#c00012",
+                    "on-tertiary-fixed": "#001f2a",
+                    "on-tertiary-fixed-variant": "#004d64",
+                    "surface": "#111111",
+                    "border-default": "#242424",
+                    "on-primary-fixed-variant": "#93000b",
+                    "tertiary-fixed-dim": "#6bd3fd",
+                    "on-secondary": "#2f3131",
+                    "surface-container-high": "#392522",
+                    "surface-container": "#2e1b18",
+                    "on-primary-container": "#5c0004",
+                    "on-tertiary-container": "#002e3d",
+                    "void": "#080808",
+                    "primary-container": "#ff544a",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-primary-fixed": "#410002",
+                    "on-error": "#690005",
+                    "antim-sanskar": "#A855F7",
+                    "secondary-container": "#454747",
+                    "on-surface": "#fedbd6",
+                    "on-background": "#fedbd6",
+                    "surface-container-highest": "#452f2d",
+                    "primary-fixed-dim": "#ffb4ab",
+                    "surface-variant": "#452f2d",
+                    "on-tertiary": "#003546",
+                    "primary-fixed": "#ffdad6",
+                    "surface-container-low": "#291715",
+                    "tertiary-container": "#249cc4",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "error": "#ffb4ab",
+                    "on-surface-variant": "#e8bcb7",
+                    "secondary-fixed": "#e2e2e2",
+                    "on-primary": "#690005",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#c6c6c7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "48px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "timer-mono": [
+                            "Geist Mono"
+                    ],
+                    "label-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-base": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "scenario-text": [
+                            "DM Serif Display"
+                    ],
+                    "display-xl": [
+                            "Bebas Neue"
+                    ],
+                    "verdict-lg": [
+                            "Bebas Neue"
+                    ]
+            },
+            "fontSize": {
+                    "timer-mono": [
+                            "32px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-base": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "scenario-text": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-xl": [
+                            "72px",
+                            {
+                                    "lineHeight": "72px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "verdict-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "48px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Halftone Texture Overlay */
+        .halftone-overlay {
+            background-image: radial-gradient(rgba(254, 219, 214, 0.08) 1.5px, transparent 1.5px);
+            background-size: 6px 6px;
+        }
+
+        /* Gold Glow for Winner */
+        .winner-glow {
+            box-shadow: 0 0 24px rgba(255, 215, 0, 0.2), inset 0 0 12px rgba(255, 215, 0, 0.1);
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.15), inset 0 0 8px rgba(255, 215, 0, 0.05); }
+            100% { box-shadow: 0 0 32px rgba(255, 215, 0, 0.3), inset 0 0 16px rgba(255, 215, 0, 0.15); }
+        }
+
+        /* EKG Subtle Background Line */
+        .ekg-line {
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 84, 74, 0.2) 50%, transparent 100%);
+            height: 1px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-void text-on-surface min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Texture Layer -->
+<div class="fixed inset-0 halftone-overlay pointer-events-none z-0"></div>
+<!-- Main Canvas -->
+<main class="relative z-10 flex-1 flex flex-col max-w-5xl mx-auto w-full px-gutter py-margin-mobile md:py-margin-desktop">
+<!-- Header Section -->
+<header class="text-center mb-12 flex flex-col items-center justify-center">
+<div class="ekg-line mb-8"></div>
+<h1 class="font-display-xl text-display-xl text-jugaad uppercase tracking-widest drop-shadow-lg">
+                FINAL SCOREBOARD
+            </h1>
+<div class="ekg-line mt-8"></div>
+</header>
+<!-- Leaderboard List -->
+<section class="flex-1 flex flex-col gap-4 w-full max-w-3xl mx-auto">
+<!-- Row 1: Winner -->
+<div class="relative bg-surface-container-low border-2 border-jugaad rounded-xl p-6 flex flex-col md:flex-row items-center gap-6 winner-glow transform md:scale-105 z-20">
+<!-- Winner Badge -->
+<div class="absolute -top-4 -left-4 bg-jugaad text-void rounded-full p-2 shadow-lg flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<div class="font-timer-mono text-timer-mono text-jugaad w-16 text-center shrink-0">
+                    01
+                </div>
+<div class="shrink-0 relative">
+<img alt="Sharma Ji Ka Beta avatar" class="w-24 h-24 object-cover rounded-full border-4 border-jugaad bg-surface shadow-[0_0_15px_rgba(255,215,0,0.4)]" data-alt="A striking, high-contrast digital illustration of a smug Indian student in a pristine school uniform. The character has an arrogant smirk and glowing aura, drawn with thick comic-book style black outlines. Set against a dark, minimalist medical monitor background to make the bold colors pop. The lighting is dramatic, emphasizing his perfect status." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeRTdhIA7O0av-I0HRskIftRlQf9NAcu_6wpUSpwCpv8NeOHaC8rHSGGwTVnlJgbMufq5jMiAmQ9CemBrjHdH_wwxfcnIlKAMGtNXMcY7p1cQGKEeyxbSZ753yWUQ4eYCFcVV-SfAP49zPzM--M1dsfPECFnVvwcMruKAt8f8syo9vb6Puf6KPGZXqK_FPfL0w1rGdrl2aHpioip93WJRjUlXOJ1EAevead0CC2OsfLBusruEO7SgBeRdyNEIRwqDfX9-A5PepNcs"/>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h2 class="font-scenario-text text-scenario-text text-jugaad mb-1">Sharma Ji Ka Beta</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status: Immortal</p>
+</div>
+<div class="font-verdict-lg text-verdict-lg text-primary text-center md:text-right shrink-0">
+                    99.9%
+                </div>
+</div>
+<!-- Row 2 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-4 flex flex-col md:flex-row items-center gap-6 hover:bg-surface-container-high transition-colors group">
+<div class="font-timer-mono text-timer-mono text-on-surface-variant w-16 text-center shrink-0 group-hover:text-tertiary transition-colors">
+                    02
+                </div>
+<div class="shrink-0">
+<img alt="Jugaadu avatar" class="w-16 h-16 object-cover rounded-full border-2 border-outline-variant grayscale group-hover:grayscale-0 transition-all" data-alt="A vibrant, expressive comic-book style character bust of a street-smart Indian mechanic with greasy hair and a mischievous grin. Drawn with thick black ink outlines and flat, bold colors. Set against a stark, dark void to highlight the intense character art. The mood is rebellious and gritty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW7YmYpuaGxtqAiFKoTkeegw7A2KTs2YUqN0XHPJ_cs6jep7tcuM6t4gmua5lhl5YSMvsFXHQ-6TeSXxWl50NA9H3sQZCNnj_2hZQFr0YvrCljUEw6SBG0PsTqZHaHzhnuLBRXnpDkdJBysJUGXDCtjtU1ufEUfyoAl1x75xQB4EUmxPPRcd-Kgyg3R2OXWHjb9rHjd2O8Byj0HpD-20Cd_rdbT-NxMnNNR-rEgX7KcYSK6RV7nPelthjH6_bbOoSkedrO-b0LvSY"/>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h2 class="font-scenario-text text-[20px] text-on-surface">Jugaadu</h2>
+</div>
+<div class="font-verdict-lg text-[36px] text-on-surface-variant text-center md:text-right shrink-0">
+                    84.2%
+                </div>
+</div>
+<!-- Row 3 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-4 flex flex-col md:flex-row items-center gap-6 hover:bg-surface-container-high transition-colors group">
+<div class="font-timer-mono text-timer-mono text-on-surface-variant w-16 text-center shrink-0 group-hover:text-tertiary transition-colors">
+                    03
+                </div>
+<div class="shrink-0">
+<img alt="The Topper avatar" class="w-16 h-16 object-cover rounded-full border-2 border-outline-variant grayscale group-hover:grayscale-0 transition-all" data-alt="An intense, high-energy illustration of an extremely stressed Indian student with thick glasses, messy hair, and bags under their eyes. The art style features heavy comic-book outlines and dramatic, glowing highlights. The color palette contrasts bright, anxious energy against a deep black void." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZobfv4D1xrjXx1YPkQzo0SbcY_IF9G4DhuLCNeBy_AjVZZhPlPUP80jPeqkOFviKnScKg2Ss30nbqsRWL0JRH96Iu3oQbseIUuaP_2Cl9bPySZ1QRlBHUQmoYc-LWYof2se9tUm-R2RKdysut_W651fFjoGWdyLluwec0-T4CklPjo3azQbcikMHhEHUppzetzcpnZwLUodw-3vINEiZ-PuMH6Bc1NMXpyZqHIGZbyXYQaYDEesyOvpmHtC8eXkbo0VLsh3fU8sk"/>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h2 class="font-scenario-text text-[20px] text-on-surface">The Topper</h2>
+</div>
+<div class="font-verdict-lg text-[36px] text-on-surface-variant text-center md:text-right shrink-0">
+                    78.5%
+                </div>
+</div>
+<!-- Row 4 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-4 flex flex-col md:flex-row items-center gap-6 hover:bg-surface-container-high transition-colors group opacity-75">
+<div class="font-timer-mono text-timer-mono text-outline w-16 text-center shrink-0">
+                    04
+                </div>
+<div class="shrink-0">
+<img alt="IT Uncle avatar" class="w-16 h-16 object-cover rounded-full border-2 border-outline-variant grayscale opacity-60" data-alt="A humorous, high-contrast comic art bust of an older Indian man with a prominent mustache, wearing a slightly oversized formal shirt and a Bluetooth earpiece. He has a serious, judgmental expression. The illustration uses thick black strokes and muted colors, framed against a clinical dark medical monitor background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDegfgFEvmz1U1SqTbmj5Mk9-Sln7-9P5xRJLNzThrT-DY_uDh7ul6S9QDmGI1Eq2pCBavPB5gZ49hubnqehZrqcsg_OO7G2eGrxLLQpW-TowyODpEwNebjwrrP6C6DwG1CNyOCNrqe4IJYozDvackj67lh5hLwKYqiM4ZVCtVSoGitXE4Kf_tGxlb7LiUQRowrA61eFWMDpsvYxVAdPy5h2znhVQZkE3J73j7q3EkkEmPZtUaTfCzB8Sk88NID_aDI4XNvfFdDdgg"/>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h2 class="font-scenario-text text-[20px] text-outline">IT Uncle</h2>
+<p class="font-label-sm text-label-sm text-error uppercase tracking-wider mt-1">Status: Flatlined</p>
+</div>
+<div class="font-verdict-lg text-[36px] text-error text-center md:text-right shrink-0 line-through">
+                    12.0%
+                </div>
+</div>
+</section>
+<!-- Footer Actions -->
+<footer class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6">
+<button class="bg-primary-container text-on-primary-container font-label-sm text-label-sm uppercase px-12 py-5 rounded-full tracking-[0.1em] hover:bg-primary hover:text-on-primary transition-all shadow-[0_0_15px_rgba(255,84,74,0.3)] hover:shadow-[0_0_25px_rgba(255,84,74,0.6)] transform hover:-translate-y-1 w-full sm:w-auto">
+                PLAY AGAIN
+            </button>
+<button class="border-2 border-outline-variant text-on-surface-variant font-label-sm text-label-sm uppercase px-12 py-5 rounded-full tracking-[0.1em] hover:bg-surface-container-high hover:text-on-surface hover:border-outline transition-all w-full sm:w-auto">
+                EXIT WARD
+            </button>
+</footer>
+</main>
+</body></html>

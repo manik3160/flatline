@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Flatline - Lobby</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Serif+Display&amp;family=Geist+Mono:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#452f2d",
+                    "tertiary": "#6bd3fd",
+                    "void": "#080808",
+                    "elevated": "#1A1A1A",
+                    "inverse-on-surface": "#402b29",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "on-tertiary-fixed": "#001f2a",
+                    "background": "#200f0d",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-background": "#fedbd6",
+                    "secondary-fixed": "#e2e2e2",
+                    "error": "#ffb4ab",
+                    "surface-container-high": "#392522",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "secondary": "#c6c6c7",
+                    "on-primary": "#690005",
+                    "inverse-primary": "#c00012",
+                    "primary-fixed-dim": "#ffb4ab",
+                    "border-default": "#242424",
+                    "secondary-container": "#454747",
+                    "on-primary-container": "#5c0004",
+                    "on-error-container": "#ffdad6",
+                    "error-container": "#93000a",
+                    "surface-tint": "#ffb4ab",
+                    "on-error": "#690005",
+                    "jugaad": "#FFD700",
+                    "outline-variant": "#5e3f3b",
+                    "tertiary-container": "#249cc4",
+                    "surface-dim": "#200f0d",
+                    "barbad": "#F97316",
+                    "on-secondary-container": "#b4b5b5",
+                    "tertiary-fixed-dim": "#6bd3fd",
+                    "surface-container-low": "#291715",
+                    "on-surface": "#fedbd6",
+                    "surface-variant": "#452f2d",
+                    "on-secondary": "#2f3131",
+                    "outline": "#ae8783",
+                    "primary-container": "#ff544a",
+                    "on-surface-variant": "#e8bcb7",
+                    "bach-gaya": "#22C55E",
+                    "on-tertiary-container": "#002e3d",
+                    "inverse-surface": "#fedbd6",
+                    "on-primary-fixed": "#410002",
+                    "surface-bright": "#4a3431",
+                    "primary-fixed": "#ffdad6",
+                    "surface-container-lowest": "#1a0a08",
+                    "primary": "#ffb4ab",
+                    "surface-container": "#2e1b18",
+                    "on-primary-fixed-variant": "#93000b",
+                    "tertiary-fixed": "#bde9ff",
+                    "surface": "#111111",
+                    "on-tertiary": "#003546",
+                    "on-tertiary-fixed-variant": "#004d64",
+                    "antim-sanskar": "#A855F7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "48px"
+            },
+            "fontFamily": {
+                    "body-base": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "scenario-text": [
+                            "DM Serif Display"
+                    ],
+                    "label-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "verdict-lg": [
+                            "Bebas Neue"
+                    ],
+                    "timer-mono": [
+                            "Geist Mono"
+                    ],
+                    "display-xl": [
+                            "Bebas Neue"
+                    ]
+            },
+            "fontSize": {
+                    "body-base": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "scenario-text": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "verdict-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "48px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "timer-mono": [
+                            "32px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-xl": [
+                            "72px",
+                            {
+                                    "lineHeight": "72px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .ekg-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,180,171,0.2) 20%, rgba(255,180,171,1) 50%, rgba(255,180,171,0.2) 80%, transparent 100%);
+            box-shadow: 0 0 8px rgba(255,180,171,0.5);
+            animation: pulse-ekg 2s infinite;
+        }
+        @keyframes pulse-ekg {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        .border-glow {
+            box-shadow: 0 0 10px rgba(255, 84, 74, 0.4);
+            border-color: #ff544a;
+        }
+        .btn-red-flatline {
+            background-color: #c00012;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-red-flatline:hover {
+            background-color: #ff544a;
+            box-shadow: 0 0 15px rgba(255, 84, 74, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-void text-on-surface min-h-screen font-body-base overflow-x-hidden pt-20 pb-24 md:pb-8 flex flex-col items-center">
+<!-- TopAppBar from JSON -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-2 border-b border-outline-variant bg-void">
+<div class="font-display-xl text-display-xl text-primary tracking-tighter uppercase">FLATLINE</div>
+<div class="flex gap-4">
+<button class="text-primary hover:text-primary-container transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+<button class="text-primary hover:text-primary-container transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">emergency</span>
+</button>
+</div>
+</header>
+<main class="w-full max-w-4xl px-gutter flex-grow flex flex-col gap-margin-desktop mt-8">
+<!-- Room Code Section -->
+<section class="flex flex-col items-center gap-4 w-full">
+<div class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-widest">Room Code</div>
+<div class="relative w-full max-w-md">
+<div class="absolute inset-0 bg-primary opacity-5 blur-xl rounded-lg"></div>
+<div class="relative border-2 border-dashed border-primary rounded-lg p-6 bg-surface-container-lowest flex flex-col items-center justify-center gap-2 border-glow">
+<h1 class="font-timer-mono text-timer-mono text-primary tracking-[0.2em]">B7X9R</h1>
+<button class="flex items-center gap-2 text-primary font-label-sm text-label-sm uppercase hover:text-primary-container transition-colors mt-2 bg-surface-container-highest px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+                        Share with friends
+                    </button>
+</div>
+</div>
+<div class="w-full max-w-2xl mt-4">
+<div class="ekg-line w-full"></div>
+</div>
+</section>
+<!-- Player List Section -->
+<section class="w-full flex flex-col gap-6">
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<h2 class="font-verdict-lg text-verdict-lg text-on-surface">PLAYERS</h2>
+<span class="font-timer-mono text-[16px] text-tertiary">4/8</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Player Chip: Host -->
+<div class="bg-surface-container border border-primary rounded-lg p-3 flex items-center gap-4 relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary opacity-5 group-hover:opacity-10 transition-opacity"></div>
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="w-16 h-16 rounded-md bg-surface-container-highest border border-outline-variant overflow-hidden flex-shrink-0 relative">
+<img alt="Character Bust" class="w-full h-full object-cover" data-alt="A striking digital illustration of an Indian cartoon character bust in a dark, high-contrast, minimalist-noir clinical aesthetic. The character is intensely expressive, highlighted with harsh rim lighting against a deep black background. Small details suggest a medical or emergency telemetry environment. The overall mood is high-stakes and urgent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXrcfufvOVYbV4h6LE6ttNelz5gik2hiskRD1iq3xGcAMtwm41sOZ9QmKdgUv13X_I5-qxF2i1qlDCAD_LQt1CYkonts1zny0crTJrfv90xQHF8D6yLznnffg3Dx8SXEYPbO8QARc1SRDM7yNcDPW16DCzzoHA-RMteEZYbbuk8chTnXAloGlGOL5mxB1OPZuCQdR2xJcHmQxzk3fNtddsGxpyf5G9qXc-xM0SRSMhklNVT-hMaUSAWo7__8Y43q6Ee5sAwbkNtFQ"/>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<span class="font-body-base text-body-base text-on-surface font-semibold">Topper_01</span>
+<span class="bg-primary text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-sm uppercase font-bold tracking-wider">Host</span>
+</div>
+<span class="font-timer-mono text-[14px] text-on-surface-variant mt-1">Status: Ready</span>
+</div>
+</div>
+<!-- Player Chip -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-3 flex items-center gap-4 relative overflow-hidden group">
+<div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity"></div>
+<div class="w-16 h-16 rounded-md bg-surface-container-highest border border-outline-variant overflow-hidden flex-shrink-0 relative">
+<img alt="Character Bust" class="w-full h-full object-cover" data-alt="A striking digital illustration of an Indian cartoon character bust, portraying a 'Jugaadu' archetype, set against a dark, high-contrast, minimalist-noir clinical aesthetic. The character is animated and expressive, lit by stark, dramatic lighting. The dark background is punctuated by subtle, glowing medical monitor UI elements. The mood is energetic yet contained within a tense environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA08D_6yC5SO85ehP8sdzBHXNbUKl_XgFbv9-ECk4bsxV4MEjyFz1X3EyWOt1Iy8eU7JrrCll-t4MKXM0CZxUNTcJjGleSbdhpzPbPrOCVRWTbaWrb98kz8AKdjTq3eCU4v8GZPocAflY9S1r-q-pcpPJbon1ZkknEUazvGpGxcXy2na9WzCFG6t9PKvEVC7Oks7aDib_7No006uLb8FTLsV-45NkSLANZjF0lU1yZJT00U-wUNWtJLU6A6ZZf0zJijTFFTlWeqBJQ"/>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<span class="font-body-base text-body-base text-on-surface font-semibold">Jugaadu_Max</span>
+<span class="font-timer-mono text-[14px] text-tertiary mt-1">Status: Ready</span>
+</div>
+</div>
+<!-- Player Chip -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-3 flex items-center gap-4 relative overflow-hidden group opacity-80">
+<div class="w-16 h-16 rounded-md bg-surface-container-highest border border-outline-variant overflow-hidden flex-shrink-0 relative flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-3xl">person</span>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<span class="font-body-base text-body-base text-on-surface-variant italic">Waiting...</span>
+</div>
+</div>
+<!-- Player Chip -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-3 flex items-center gap-4 relative overflow-hidden group opacity-80">
+<div class="w-16 h-16 rounded-md bg-surface-container-highest border border-outline-variant overflow-hidden flex-shrink-0 relative flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-3xl">person</span>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<span class="font-body-base text-body-base text-on-surface-variant italic">Waiting...</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Host Settings Section -->
+<section class="w-full bg-surface-container-low border border-outline-variant rounded-xl p-6 flex flex-col gap-6 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-tertiary opacity-50"></div>
+<h3 class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+                Lobby Settings (Host Only)
+            </h3>
+<!-- Category Selector -->
+<div class="flex flex-col gap-3">
+<label class="font-body-base text-[14px] text-on-surface-variant">Select Category</label>
+<div class="flex flex-wrap gap-2">
+<button class="bg-primary text-on-primary font-label-sm text-label-sm px-4 py-2 rounded-full font-bold uppercase transition-colors">Emergency</button>
+<button class="bg-surface border border-outline-variant text-on-surface-variant font-label-sm text-label-sm px-4 py-2 rounded-full uppercase hover:border-primary hover:text-primary transition-colors">Triage</button>
+<button class="bg-surface border border-outline-variant text-on-surface-variant font-label-sm text-label-sm px-4 py-2 rounded-full uppercase hover:border-primary hover:text-primary transition-colors">ICU Drama</button>
+<button class="bg-surface border border-outline-variant text-on-surface-variant font-label-sm text-label-sm px-4 py-2 rounded-full uppercase hover:border-primary hover:text-primary transition-colors">Night Shift</button>
+</div>
+</div>
+<!-- Rounds Selector -->
+<div class="flex flex-col gap-3">
+<label class="font-body-base text-[14px] text-on-surface-variant">Number of Rounds</label>
+<div class="flex gap-2">
+<button class="bg-surface border border-outline-variant text-on-surface-variant font-timer-mono text-[20px] w-12 h-12 rounded flex items-center justify-center hover:border-primary transition-colors">3</button>
+<button class="bg-surface-container-highest border-2 border-primary text-primary font-timer-mono text-[20px] w-12 h-12 rounded flex items-center justify-center border-glow">5</button>
+<button class="bg-surface border border-outline-variant text-on-surface-variant font-timer-mono text-[20px] w-12 h-12 rounded flex items-center justify-center hover:border-primary transition-colors">7</button>
+</div>
+</div>
+<!-- Start Button -->
+<button class="btn-red-flatline w-full py-4 rounded-lg font-verdict-lg text-verdict-lg tracking-wider mt-4 relative overflow-hidden flex justify-center items-center gap-3">
+<span>START GAME</span>
+<span class="material-symbols-outlined text-4xl">play_arrow</span>
+</button>
+</section>
+</main>
+<!-- SideNavBar from JSON (Hidden on mobile, mapped to SideNavBar structure but acting as bottom nav on mobile per rules) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 h-20 border-t border-outline-variant bg-void">
+<button class="flex flex-col items-center justify-center text-tertiary bg-surface-container-highest border-t-2 border-tertiary rounded-t-lg p-2 w-16">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-[10px] mt-1">Lobby</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">monitoring</span>
+<span class="font-label-sm text-[10px] mt-1">Stats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+<span class="font-label-sm text-[10px] mt-1">Archive</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">logout</span>
+<span class="font-label-sm text-[10px] mt-1">Exit</span>
+</button>
+</nav>
+<!-- Desktop Side Nav -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full z-40 pt-16 flex-col bg-surface-container-lowest border-r border-outline-variant w-64">
+<!-- Header -->
+<div class="p-6 border-b border-outline-variant flex flex-col gap-4">
+<div class="w-16 h-16 rounded bg-surface-container-highest border border-outline-variant overflow-hidden">
+<img alt="Player Character Bust" class="w-full h-full object-cover" data-alt="A striking digital illustration of an Indian cartoon character bust in a dark, high-contrast, minimalist-noir clinical aesthetic. Intense expression, dramatic rim lighting, deep black background. High stakes mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoxI-AIrP9n-A3MdpK-ZF35hZUhtBZUyFV3wMvxdeWHvCuZ6pN6KG36b82B3wKuTF8GrPxwwCHfTktwUxWa5XpwhV39QrD3lAAK36TRmzS_J-tQBwuEH-kc0Xk_dTXMlwkNfS-TNKpfn7NaG6SxLxij59GIjZORdmQ2pRAaxtXeYplzhe3SZYE_hlnPNZX2-OPIpK4YXKRUDhQXEVRKP1stV0jB2aTd9fKCERNcTbuDO2HY2y-cTUiWadlmqVSftGVG6o0CmoAY-M"/>
+</div>
+<div>
+<div class="font-body-base text-body-base text-on-surface font-bold uppercase">PATIENT_01</div>
+<div class="font-timer-mono text-[12px] text-tertiary">Vitals: Stable</div>
+</div>
+</div>
+<!-- Links -->
+<div class="flex flex-col py-4 gap-2 flex-grow">
+<a class="flex items-center gap-4 py-3 text-tertiary font-bold border-l-4 border-tertiary pl-4 bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm uppercase">Lobby</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">monitoring</span>
+<span class="font-label-sm text-label-sm uppercase">Stats</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+<span class="font-label-sm text-label-sm uppercase">Archive</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors mt-auto" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">logout</span>
+<span class="font-label-sm text-label-sm uppercase">Exit</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full bg-surface border border-outline-variant text-on-surface py-2 rounded font-label-sm text-label-sm uppercase hover:border-tertiary hover:text-tertiary transition-colors">
+                JOIN WARD
+            </button>
+</div>
+</nav>
+</body></html>

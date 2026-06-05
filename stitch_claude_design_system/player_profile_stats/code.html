@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Flatline - Patient Stats</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Serif+Display&amp;family=Geist+Mono:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-bright": "#4a3431",
+                "outline-variant": "#5e3f3b",
+                "background": "#200f0d",
+                "barbad": "#F97316",
+                "bach-gaya": "#22C55E",
+                "elevated": "#1A1A1A",
+                "tertiary-fixed": "#bde9ff",
+                "surface-tint": "#ffb4ab",
+                "outline": "#ae8783",
+                "inverse-on-surface": "#402b29",
+                "surface-dim": "#200f0d",
+                "surface-container-lowest": "#1a0a08",
+                "error-container": "#93000a",
+                "primary": "#ffb4ab",
+                "on-secondary-fixed": "#1a1c1c",
+                "on-secondary-container": "#b4b5b5",
+                "inverse-surface": "#fedbd6",
+                "tertiary": "#6bd3fd",
+                "jugaad": "#FFD700",
+                "inverse-primary": "#c00012",
+                "on-tertiary-fixed": "#001f2a",
+                "on-tertiary-fixed-variant": "#004d64",
+                "surface": "#111111",
+                "border-default": "#242424",
+                "on-primary-fixed-variant": "#93000b",
+                "tertiary-fixed-dim": "#6bd3fd",
+                "on-secondary": "#2f3131",
+                "surface-container-high": "#392522",
+                "surface-container": "#2e1b18",
+                "on-primary-container": "#5c0004",
+                "on-tertiary-container": "#002e3d",
+                "void": "#080808",
+                "primary-container": "#ff544a",
+                "on-secondary-fixed-variant": "#454747",
+                "on-primary-fixed": "#410002",
+                "on-error": "#690005",
+                "antim-sanskar": "#A855F7",
+                "secondary-container": "#454747",
+                "on-surface": "#fedbd6",
+                "on-background": "#fedbd6",
+                "surface-container-highest": "#452f2d",
+                "primary-fixed-dim": "#ffb4ab",
+                "surface-variant": "#452f2d",
+                "on-tertiary": "#003546",
+                "primary-fixed": "#ffdad6",
+                "surface-container-low": "#291715",
+                "tertiary-container": "#249cc4",
+                "secondary-fixed-dim": "#c6c6c7",
+                "error": "#ffb4ab",
+                "on-surface-variant": "#e8bcb7",
+                "secondary-fixed": "#e2e2e2",
+                "on-primary": "#690005",
+                "on-error-container": "#ffdad6",
+                "secondary": "#c6c6c7"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "unit": "4px",
+                "margin-mobile": "16px",
+                "margin-desktop": "48px",
+                "gutter": "16px"
+        },
+        "fontFamily": {
+                "timer-mono": ["Geist Mono"],
+                "label-sm": ["Plus Jakarta Sans"],
+                "body-base": ["Plus Jakarta Sans"],
+                "scenario-text": ["DM Serif Display"],
+                "display-xl": ["Bebas Neue"],
+                "verdict-lg": ["Bebas Neue"]
+        },
+        "fontSize": {
+                "timer-mono": ["32px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "scenario-text": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                "display-xl": ["72px", {"lineHeight": "72px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                "verdict-lg": ["48px", {"lineHeight": "48px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+    body {
+        background-color: #080808;
+    }
+    .ekg-line {
+        background-image: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(94, 63, 59, 0.1) 10px, rgba(94, 63, 59, 0.1) 11px),
+                          repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(94, 63, 59, 0.1) 10px, rgba(94, 63, 59, 0.1) 11px);
+    }
+</style>
+</head>
+<body class="text-on-surface font-body-base overflow-x-hidden selection:bg-primary selection:text-on-primary antialiased">
+<div class="fixed inset-0 z-0 opacity-15 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLtHEIvbwi9cuL55PW-kvgRmHxqbbwPVu72ZU7u003Z9MJMU_wJ2F-TG1-tYbsf2lViwlUZ_bPXS88BzVsVjUDrdGy5ZQs_uE6BE8LG3VveCXm1k1lBYekahe2mWm1TsV76erA3ObpUWMh7nvO6BKYhknfb08rACfjBL-MFPW85UMejHGjm6KbF7_7jzptCZo-OZRrauzYRjtEp5Rh300X2TlH27o1EgXbWA1K2QdwqRKZH4zpAG1ykYGMA');"></div>
+<div class="fixed inset-0 z-0 bg-void/70 mix-blend-multiply pointer-events-none"></div>
+<nav class="hidden md:flex fixed left-0 top-0 h-full w-64 z-40 pt-16 flex-col bg-surface-container-lowest border-r border-outline-variant">
+<div class="px-6 mb-12">
+<span class="font-display-xl text-display-xl text-primary tracking-tighter">FLATLINE</span>
+</div>
+<div class="px-6 mb-8 flex flex-col border-b border-outline-variant pb-8">
+<div class="w-16 h-16 rounded-full bg-surface-container-high border border-outline mb-4 overflow-hidden shadow-[0_0_15px_rgba(255,180,171,0.2)]">
+<img alt="Player Character Bust" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLvMAwXh8_gsM4Ya7zNlbRxHcGAZ7X-N0DTRp_-4ZNBMPWu5KK3OJUCi3ieNCAVapvOoprUjxa6BFikvd5T4u81LWeYJki-aqqiHO17U5owaVkhfD5j3LejbSC7NWHEJw9j308iPAInlM4d8r4aHZ5tCSxunSp0q-2kmTVKldyWRT-P4YjbPnaag-ya0xHF9ldmj2PTjfmbJ4XSKnFadE6aHYXPal4kO4Bkv7oVuvb_QNNRO14SLfZbqE-A"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">PATIENT_01</span>
+<span class="font-label-sm text-label-sm text-bach-gaya mt-1">Vitals: Stable</span>
+</div>
+<ul class="flex flex-col gap-1 flex-1">
+<li>
+<a class="flex items-center gap-3 py-4 font-label-sm text-label-sm text-on-surface-variant pl-6 hover:bg-surface-container-high hover:text-tertiary transition-colors" href="#">
+<span class="material-symbols-outlined">group</span> Lobby
+            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-4 font-label-sm text-label-sm text-tertiary font-bold border-l-4 border-tertiary pl-5 bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span> Stats
+            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-4 font-label-sm text-label-sm text-on-surface-variant pl-6 hover:bg-surface-container-high hover:text-tertiary transition-colors" href="#">
+<span class="material-symbols-outlined">history</span> Archive
+            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-4 font-label-sm text-label-sm text-on-surface-variant pl-6 hover:bg-surface-container-high hover:text-tertiary transition-colors mt-auto" href="#">
+<span class="material-symbols-outlined">logout</span> Exit
+            </a>
+</li>
+</ul>
+<div class="p-6">
+<button class="w-full py-3 bg-error-container text-on-error-container font-label-sm text-label-sm uppercase tracking-wider rounded border border-primary-fixed hover:bg-on-primary hover:text-primary transition-colors">
+            JOIN WARD
+        </button>
+</div>
+</nav>
+<main class="relative z-10 md:ml-64 min-h-screen p-margin-mobile md:p-margin-desktop flex flex-col gap-16 ekg-line">
+<section class="flex flex-col items-center justify-center pt-8">
+<div class="relative w-56 h-56 rounded-full border-4 border-outline-variant bg-surface-container-low flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(255,180,171,0.15)]">
+<div class="absolute inset-0 rounded-full border border-primary opacity-30 animate-ping"></div>
+<div class="absolute -inset-4 rounded-full border border-tertiary opacity-10 animate-pulse"></div>
+<img class="w-full h-full object-contain rounded-full relative z-10 scale-125 -mt-8 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" src="https://lh3.googleusercontent.com/aida/AP1WRLvMAwXh8_gsM4Ya7zNlbRxHcGAZ7X-N0DTRp_-4ZNBMPWu5KK3OJUCi3ieNCAVapvOoprUjxa6BFikvd5T4u81LWeYJki-aqqiHO17U5owaVkhfD5j3LejbSC7NWHEJw9j308iPAInlM4d8r4aHZ5tCSxunSp0q-2kmTVKldyWRT-P4YjbPnaag-ya0xHF9ldmj2PTjfmbJ4XSKnFadE6aHYXPal4kO4Bkv7oVuvb_QNNRO14SLfZbqE-A"/>
+</div>
+<h1 class="font-display-xl text-display-xl text-primary tracking-tighter uppercase drop-shadow-lg">PATIENT_01</h1>
+<div class="flex items-center gap-3 mt-4 bg-surface-container-high px-4 py-2 rounded-full border border-outline-variant">
+<div class="w-3 h-3 rounded-full bg-bach-gaya animate-pulse shadow-[0_0_10px_#22C55E]"></div>
+<span class="font-label-sm text-label-sm text-bach-gaya uppercase tracking-widest">Vitals: Stable</span>
+</div>
+</section>
+<section class="max-w-4xl mx-auto w-full">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-tertiary">query_stats</span>
+<h2 class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">Telemetry Data</h2>
+<div class="flex-1 h-px bg-gradient-to-r from-outline-variant to-transparent"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest/80 backdrop-blur-sm border border-outline-variant p-8 flex flex-col justify-between hover:bg-surface-container-low transition-colors relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">emoji_objects</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-6">Jugaads Pulled</span>
+<span class="font-timer-mono text-timer-mono text-jugaad drop-shadow-[0_0_8px_rgba(255,215,0,0.4)]">24</span>
+</div>
+<div class="bg-surface-container-lowest/80 backdrop-blur-sm border border-outline-variant p-8 flex flex-col justify-between hover:bg-surface-container-low transition-colors relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">favorite</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-6">Survival Rate</span>
+<span class="font-timer-mono text-timer-mono text-bach-gaya drop-shadow-[0_0_8px_rgba(34,197,94,0.4)]">82%</span>
+</div>
+<div class="bg-surface-container-lowest/80 backdrop-blur-sm border border-outline-variant p-8 flex flex-col justify-between hover:bg-surface-container-low transition-colors relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">swords</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-6">Total Rounds</span>
+<span class="font-timer-mono text-timer-mono text-primary drop-shadow-[0_0_8px_rgba(255,180,171,0.4)]">148</span>
+</div>
+<div class="bg-surface-container-lowest/80 backdrop-blur-sm border border-outline-variant p-8 flex flex-col justify-between hover:bg-surface-container-low transition-colors relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">local_fire_department</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-6">Avg. Roast Level</span>
+<span class="font-timer-mono text-timer-mono text-barbad drop-shadow-[0_0_8px_rgba(249,115,22,0.4)]">CRITICAL</span>
+</div>
+</div>
+</section>
+<section class="max-w-4xl mx-auto w-full pb-24">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-primary">military_tech</span>
+<h2 class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Verdict Badges</h2>
+<div class="flex-1 h-px bg-gradient-to-r from-outline-variant to-transparent"></div>
+</div>
+<div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+<div class="aspect-square rounded-full border border-jugaad bg-surface-container flex flex-col items-center justify-center relative group hover:scale-110 transition-transform shadow-[0_0_15px_rgba(255,215,0,0.15)] cursor-pointer">
+<span class="material-symbols-outlined text-jugaad text-3xl mb-1" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<span class="text-[9px] font-bold text-jugaad uppercase tracking-widest">Jugaad</span>
+</div>
+<div class="aspect-square rounded-full border border-barbad bg-surface-container flex flex-col items-center justify-center relative group hover:scale-110 transition-transform shadow-[0_0_15px_rgba(249,115,22,0.15)] cursor-pointer">
+<span class="material-symbols-outlined text-barbad text-3xl mb-1" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-[9px] font-bold text-barbad uppercase tracking-widest">Barbad</span>
+</div>
+<div class="aspect-square rounded-full border border-bach-gaya bg-surface-container flex flex-col items-center justify-center relative group hover:scale-110 transition-transform shadow-[0_0_15px_rgba(34,197,94,0.15)] cursor-pointer">
+<span class="material-symbols-outlined text-bach-gaya text-3xl mb-1" style="font-variation-settings: 'FILL' 1;">healing</span>
+<span class="text-[9px] font-bold text-bach-gaya uppercase tracking-widest">Safe</span>
+</div>
+<div class="aspect-square rounded-full border border-antim-sanskar bg-surface-container flex flex-col items-center justify-center relative group hover:scale-110 transition-transform shadow-[0_0_15px_rgba(168,85,247,0.15)] cursor-pointer">
+<span class="material-symbols-outlined text-antim-sanskar text-3xl mb-1" style="font-variation-settings: 'FILL' 1;">skull</span>
+<span class="text-[9px] font-bold text-antim-sanskar uppercase tracking-widest">Antim</span>
+</div>
+<div class="aspect-square rounded-full border border-outline-variant bg-surface-container-lowest opacity-40 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<div class="aspect-square rounded-full border border-outline-variant bg-surface-container-lowest opacity-40 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<div class="aspect-square rounded-full border border-outline-variant bg-surface-container-lowest opacity-40 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<div class="aspect-square rounded-full border border-outline-variant bg-surface-container-lowest opacity-40 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<div class="aspect-square rounded-full border border-outline-variant bg-surface-container-lowest opacity-40 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<div class="aspect-square rounded-full border border-outline-variant bg-surface-container-lowest opacity-40 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<div class="aspect-square rounded-full border border-outline-variant bg-surface-container-lowest opacity-40 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<div class="aspect-square rounded-full border border-outline-variant bg-surface-container-lowest opacity-40 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+</div>
+</section>
+</main>
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 h-20 bg-void border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">ecg_heart</span>
+<span class="font-label-sm text-[10px] mt-1">Vitals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-surface-container-highest rounded-xl p-2 scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="font-label-sm text-[10px] mt-1">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">festival</span>
+<span class="font-label-sm text-[10px] mt-1">Ward</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-sm text-[10px] mt-1">Alerts</span>
+</a>
+</nav>
+</body></html>

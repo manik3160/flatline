@@ -6,36 +6,91 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Geist+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-/* ─── Color Tokens ─── */
-:root {
-  --bg-void: #080808;
-  --bg-surface: #111111;
-  --bg-elevated: #1a1a1a;
-  --border: #242424;
-  --border-glow: #ff2d2d33;
+@theme {
+  --color-surface-container-highest: #452f2d;
+  --color-tertiary: #6bd3fd;
+  --color-void: #080808;
+  --color-elevated: #1A1A1A;
+  --color-inverse-on-surface: #402b29;
+  --color-on-secondary-fixed: #1a1c1c;
+  --color-on-tertiary-fixed: #001f2a;
+  --color-background: #200f0d;
+  --color-on-secondary-fixed-variant: #454747;
+  --color-on-background: #fedbd6;
+  --color-secondary-fixed: #e2e2e2;
+  --color-error: #ffb4ab;
+  --color-surface-container-high: #392522;
+  --color-secondary-fixed-dim: #c6c6c7;
+  --color-secondary: #c6c6c7;
+  --color-on-primary: #690005;
+  --color-inverse-primary: #c00012;
+  --color-primary-fixed-dim: #ffb4ab;
+  --color-border-default: #242424;
+  --color-secondary-container: #454747;
+  --color-on-primary-container: #5c0004;
+  --color-on-error-container: #ffdad6;
+  --color-error-container: #93000a;
+  --color-surface-tint: #ffb4ab;
+  --color-on-error: #690005;
+  --color-jugaad: #FFD700;
+  --color-outline-variant: #5e3f3b;
+  --color-tertiary-container: #249cc4;
+  --color-surface-dim: #200f0d;
+  --color-barbad: #F97316;
+  --color-on-secondary-container: #b4b5b5;
+  --color-tertiary-fixed-dim: #6bd3fd;
+  --color-surface-container-low: #291715;
+  --color-on-surface: #fedbd6;
+  --color-surface-variant: #452f2d;
+  --color-on-secondary: #2f3131;
+  --color-outline: #ae8783;
+  --color-primary-container: #ff544a;
+  --color-on-surface-variant: #e8bcb7;
+  --color-bach-gaya: #22C55E;
+  --color-on-tertiary-container: #002e3d;
+  --color-inverse-surface: #fedbd6;
+  --color-on-primary-fixed: #410002;
+  --color-surface-bright: #4a3431;
+  --color-primary-fixed: #ffdad6;
+  --color-surface-container-lowest: #1a0a08;
+  --color-primary: #ffb4ab;
+  --color-surface-container: #2e1b18;
+  --color-on-primary-fixed-variant: #93000b;
+  --color-tertiary-fixed: #bde9ff;
+  --color-surface: #111111;
+  --color-on-tertiary: #003546;
+  --color-on-tertiary-fixed-variant: #004d64;
+  --color-antim-sanskar: #A855F7;
 
-  --red-flatline: #ff2d2d;
-  --red-soft: #ff2d2d1a;
-  --gold-jugaad: #ffd700;
-  --green-bach: #22c55e;
-  --orange-barbad: #f97316;
-  --purple-antim: #a855f7;
+  --spacing-unit: 4px;
+  --spacing-gutter: 16px;
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 48px;
 
-  --text-primary: #f5f5f5;
-  --text-secondary: #888888;
-  --text-muted: #444444;
+  --font-body-base: 'Plus Jakarta Sans', sans-serif;
+  --font-scenario-text: 'DM Serif Display', serif;
+  --font-label-sm: 'Plus Jakarta Sans', sans-serif;
+  --font-verdict-lg: 'Bebas Neue', sans-serif;
+  --font-timer-mono: 'Geist Mono', monospace;
+  --font-display-xl: 'Bebas Neue', sans-serif;
 
-  /* Verdict glows */
-  --glow-jugaad: 0 0 40px #ffd70066;
-  --glow-bach: 0 0 40px #22c55e44;
-  --glow-barbad: 0 0 40px #f9731644;
-  --glow-antim: 0 0 60px #a855f766, 0 0 120px #a855f733;
+  --text-body-base: 16px;
+  --text-body-base--line-height: 24px;
+  
+  --text-scenario-text: 24px;
+  --text-scenario-text--line-height: 32px;
+  
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  
+  --text-verdict-lg: 48px;
+  --text-verdict-lg--line-height: 48px;
+  
+  --text-timer-mono: 32px;
+  --text-timer-mono--line-height: 32px;
 
-  /* Typography */
-  --font-display: 'Bebas Neue', cursive;
-  --font-serif: 'DM Serif Display', serif;
-  --font-mono: 'Geist Mono', monospace;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --text-display-xl: 72px;
+  --text-display-xl--line-height: 72px;
 }
 
 /* ─── Base Reset ─── */
@@ -54,184 +109,67 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--bg-void);
-  color: var(--text-primary);
+  background-color: var(--color-void);
+  color: var(--color-on-surface);
   min-height: 100dvh;
   overflow-x: hidden;
 }
+
+/* ─── Typography overrides for letter-spacing ─── */
+.text-label-sm { letter-spacing: 0.02em; }
+.text-display-xl { letter-spacing: 0.05em; }
 
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-void);
+  background: var(--color-void);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--color-border-default);
   border-radius: 2px;
 }
 
-/* ─── Typography ─── */
-.font-display {
-  font-family: var(--font-display);
-  letter-spacing: 0.04em;
+/* ─── Material Symbols ─── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-.font-serif {
-  font-family: var(--font-serif);
-}
-
-.font-mono {
-  font-family: var(--font-mono);
-}
-
-/* ─── EKG Animations ─── */
-@keyframes ekg-draw {
-  0% { stroke-dashoffset: 1000; }
-  60% { stroke-dashoffset: 0; }
-  80% { stroke-dashoffset: 0; opacity: 1; }
-  100% { stroke-dashoffset: 0; opacity: 0.3; }
-}
-
-@keyframes ekg-pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-@keyframes flatline-scan {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes red-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 45, 45, 0); }
-  50% { box-shadow: 0 0 20px 4px rgba(255, 45, 45, 0.3); }
-}
-
-@keyframes timer-flash {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-@keyframes verdict-glow {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.3); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* ─── Card Styles ─── */
-.card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-}
-
-.card-elevated {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  backdrop-filter: blur(12px);
-}
-
-/* ─── Button Styles ─── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 6px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: var(--red-flatline);
-  color: white;
-}
-.btn-primary:hover:not(:disabled) {
-  background: #e62626;
-  box-shadow: 0 0 20px rgba(255, 45, 45, 0.3);
-}
-
-.btn-secondary {
-  background: var(--bg-elevated);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-}
-.btn-secondary:hover:not(:disabled) {
-  border-color: var(--red-flatline);
-  box-shadow: 0 0 12px rgba(255, 45, 45, 0.15);
-}
-
-.btn-gold {
-  background: linear-gradient(135deg, var(--gold-jugaad), #ff9500);
-  color: #080808;
-}
-.btn-gold:hover:not(:disabled) {
-  box-shadow: var(--glow-jugaad);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid transparent;
-}
-.btn-ghost:hover:not(:disabled) {
-  color: var(--text-primary);
-  border-color: var(--border);
-}
-
-/* ─── Input Styles ─── */
-.input {
+/* ─── EKG Line ─── */
+.ekg-line {
   width: 100%;
-  padding: 12px 16px;
-  background: var(--bg-void);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.2s ease;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,180,171,0.2) 20%, rgba(255,180,171,1) 50%, rgba(255,180,171,0.2) 80%, transparent 100%);
+  box-shadow: 0 0 8px rgba(255,180,171,0.5);
+  animation: pulse-ekg 2s infinite;
 }
 
-.input:focus {
-  border-color: var(--red-flatline);
-  box-shadow: 0 0 0 2px var(--red-soft);
+@keyframes pulse-ekg {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
 }
 
-.input::placeholder {
-  color: var(--text-muted);
+/* ─── Glow Styles ─── */
+.border-glow {
+  box-shadow: 0 0 10px rgba(255, 84, 74, 0.4);
+  border-color: var(--color-primary-container);
+}
+.border-glow-active {
+  box-shadow: 0 0 20px rgba(255, 180, 171, 0.5);
+  border-color: var(--color-primary) !important;
 }
 
-textarea.input {
-  resize: none;
-  min-height: 120px;
-  line-height: 1.6;
+/* ─── Buttons ─── */
+.btn-red-flatline {
+  background-color: var(--color-inverse-primary);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+.btn-red-flatline:hover {
+  background-color: var(--color-primary-container);
+  box-shadow: 0 0 15px rgba(255, 84, 74, 0.6);
 }
 
 /* ─── Game Container ─── */
@@ -243,79 +181,12 @@ textarea.input {
   position: relative;
 }
 
-/* ─── Desktop EKG Sidebar ─── */
-@media (min-width: 768px) {
-  .game-wrapper {
-    display: flex;
-    justify-content: center;
-    min-height: 100dvh;
-    position: relative;
-  }
-
-  .game-wrapper::before,
-  .game-wrapper::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    width: calc((100vw - 430px) / 2);
-    height: 100%;
-    opacity: 0.05;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 40px,
-      var(--red-flatline) 40px,
-      var(--red-flatline) 41px
-    );
-    pointer-events: none;
-  }
-  .game-wrapper::before { left: 0; }
-  .game-wrapper::after { right: 0; }
-}
-
-/* ─── Verdict Colors ─── */
-.verdict-jugaad { color: var(--gold-jugaad); }
-.verdict-bach_gaya { color: var(--green-bach); }
-.verdict-barbad { color: var(--orange-barbad); }
-.verdict-antim_sanskar { color: var(--purple-antim); }
-
-.verdict-bg-jugaad { background: var(--gold-jugaad); }
-.verdict-bg-bach_gaya { background: var(--green-bach); }
-.verdict-bg-barbad { background: var(--orange-barbad); }
-.verdict-bg-antim_sanskar { background: var(--purple-antim); }
-
-.verdict-glow-jugaad { box-shadow: var(--glow-jugaad); }
-.verdict-glow-bach_gaya { box-shadow: var(--glow-bach); }
-.verdict-glow-barbad { box-shadow: var(--glow-barbad); }
-.verdict-glow-antim_sanskar { box-shadow: var(--glow-antim); }
-
 /* ─── Misc Utilities ─── */
 .text-balance {
   text-wrap: balance;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, var(--red-flatline), #ff6b6b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.pulse-red {
-  animation: red-pulse 2s ease-in-out infinite;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s ease-in-out infinite;
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }

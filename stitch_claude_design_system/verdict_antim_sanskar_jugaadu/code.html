@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FLATLINE - Verdict Reveal</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Serif+Display:ital@0;1&amp;family=Geist+Mono:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#690005",
+                        "barbad": "#F97316",
+                        "on-secondary-fixed-variant": "#454747",
+                        "inverse-on-surface": "#402b29",
+                        "border-default": "#242424",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-tertiary": "#003546",
+                        "inverse-surface": "#fedbd6",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-primary": "#690005",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "tertiary-fixed-dim": "#6bd3fd",
+                        "primary-fixed": "#ffdad6",
+                        "jugaad": "#FFD700",
+                        "on-secondary-container": "#b4b5b5",
+                        "on-tertiary-fixed": "#001f2a",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#93000b",
+                        "outline-variant": "#5e3f3b",
+                        "error-container": "#93000a",
+                        "background": "#200f0d",
+                        "tertiary-container": "#249cc4",
+                        "surface-container-lowest": "#1a0a08",
+                        "on-tertiary-container": "#002e3d",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#200f0d",
+                        "surface-container": "#2e1b18",
+                        "on-tertiary-fixed-variant": "#004d64",
+                        "primary": "#ffb4ab",
+                        "antim-sanskar": "#A855F7",
+                        "secondary": "#c6c6c7",
+                        "secondary-container": "#454747",
+                        "surface-container-high": "#392522",
+                        "void": "#080808",
+                        "surface-variant": "#452f2d",
+                        "primary-container": "#ff544a",
+                        "surface-container-low": "#291715",
+                        "on-secondary": "#2f3131",
+                        "surface-tint": "#ffb4ab",
+                        "surface-bright": "#4a3431",
+                        "on-background": "#fedbd6",
+                        "tertiary": "#6bd3fd",
+                        "on-surface": "#fedbd6",
+                        "elevated": "#1A1A1A",
+                        "surface": "#111111",
+                        "inverse-primary": "#c00012",
+                        "tertiary-fixed": "#bde9ff",
+                        "on-surface-variant": "#e8bcb7",
+                        "on-primary-container": "#5c0004",
+                        "surface-container-highest": "#452f2d",
+                        "bach-gaya": "#22C55E",
+                        "outline": "#ae8783",
+                        "on-primary-fixed": "#410002"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px"
+                    },
+                    fontFamily: {
+                        "scenario-text": ["DM Serif Display", "serif"],
+                        "display-xl": ["Bebas Neue", "sans-serif"],
+                        "body-base": ["Plus Jakarta Sans", "sans-serif"],
+                        "label-sm": ["Plus Jakarta Sans", "sans-serif"],
+                        "verdict-lg": ["Bebas Neue", "sans-serif"],
+                        "timer-mono": ["Geist Mono", "monospace"]
+                    },
+                    fontSize: {
+                        "scenario-text": ["24px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "display-xl": ["72px", { "lineHeight": "72px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "verdict-lg": ["64px", { "lineHeight": "64px", "fontWeight": "400", "letterSpacing": "0.05em" }],
+                        "timer-mono": ["32px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* CRT Scanline Effect */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(168, 85, 247, 0.05) 50%,
+                rgba(168, 85, 247, 0.05)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Particle Float Animation */
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+        .particle {
+            animation: float-up 10s infinite linear;
+            background-color: #A855F7;
+            box-shadow: 0 0 8px #A855F7;
+        }
+
+        /* Torn Paper Edge Simulation */
+        .torn-paper {
+            clip-path: polygon(
+                0% 2%, 2% 0%, 98% 1%, 100% 3%, 
+                99% 97%, 97% 100%, 3% 98%, 0% 99%
+            );
+        }
+        
+        /* Deep Glow for Frame */
+        .deep-glow {
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3), inset 0 0 20px rgba(168, 85, 247, 0.2);
+        }
+        
+        /* Text Ink Drip Texture Simulation via Text Shadow */
+        .text-drip {
+            text-shadow: 0px 4px 0px rgba(168,85,247,0.4), 0px 8px 0px rgba(168,85,247,0.1);
+        }
+    </style>
+</head>
+<body class="bg-void text-on-surface h-screen w-screen overflow-hidden relative flex items-center justify-center p-gutter md:p-margin-desktop antialiased">
+<!-- Global CRT Overlay -->
+<div class="absolute inset-0 scanlines mix-blend-overlay"></div>
+<!-- Background Particles -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+<div class="particle absolute left-[10%] w-1 h-1 rounded-full" style="animation-duration: 8s; animation-delay: 1s;"></div>
+<div class="particle absolute left-[30%] w-2 h-2 rounded-full" style="animation-duration: 12s; animation-delay: 3s; opacity: 0.5;"></div>
+<div class="particle absolute left-[60%] w-1.5 h-1.5 rounded-full" style="animation-duration: 9s; animation-delay: 0s;"></div>
+<div class="particle absolute left-[85%] w-1 h-1 rounded-full" style="animation-duration: 11s; animation-delay: 4s;"></div>
+</div>
+<!-- Main Dramatic Frame Container -->
+<div class="relative w-full h-full max-w-5xl border-[3px] border-antim-sanskar deep-glow rounded-xl flex flex-col items-center justify-between py-12 px-6 md:px-16 z-10 bg-void/80 backdrop-blur-sm overflow-hidden">
+<!-- Background Ghost Character (Sharma Ji) -->
+<div class="absolute top-10 right-10 md:top-20 md:right-32 w-64 h-96 opacity-30 mix-blend-screen grayscale filter blur-[1px] pointer-events-none z-0">
+<img alt="Ghostly silhouette" class="w-full h-full object-contain" data-alt="A ghostly, semi-transparent silhouette of an Indian student character, 'Sharma Ji Ka Beta', standing in the background with arms crossed in a judgmental pose. The illustration uses a minimalist-noir style with deep shadows and subtle purple ethereal glows. The character's form is slightly distorted as if viewed through an old CRT medical monitor. The mood is oppressive and critical, fitting a high-stakes clinical environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoyI58hYRMYWZW_qr6GOERhGoYGRjkjw2oP3r6uOCrITRvVBKP7GAwQQW4MDDe0CEumX0AkORI01mpurKBDpGsjS_FDgCOtATLD1FO5eew5kFymutRew_veCW-qvTBCikdncNw92lPJsfC1JTe5khLYDUaYOjyndkuakrjVWRbUu43bSK9B7PJukyHw5Ym5Pm29K3DLKhklZzqR-gWoQk7kGqBEVgxFhHI7S4NoZ3ULoOHfIJ7YmMd0BbQOB6KbGFsXcDDkkOcmag"/>
+</div>
+<!-- Top: Verdict Reveal -->
+<div class="z-20 text-center w-full mt-8">
+<h1 class="font-verdict-lg text-verdict-lg text-antim-sanskar text-drip uppercase animate-pulse">
+                Antim Sanskar
+            </h1>
+</div>
+<!-- Center: Dead Character Illustration -->
+<div class="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-80 h-80 z-10 pointer-events-none">
+<img alt="Jugaadu defeated" class="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]" data-alt="A striking digital illustration in a dark, minimalist clinical-noir style. Central focus is a high-contrast, Indian-inspired cartoon character known as 'The Jugaadu', lying in a dramatically exaggerated dead or defeated pose on the floor. The character has thick black outlines and vibrant pops of color that contrast sharply against the pitch-black void background. The lighting is harsh, reminiscent of a medical monitor's glare. Overall mood is high-drama and darkly comedic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCJ9psSEqibpxDSxZpBoQXSsyeMSF_4j_JlhWaQxS52tRn93deA7HAOQETz3X-SQ050MLDn5wu1Q_kH5x9AJ8lV8WDqJYYtZToac2NioMceW5JUWqQ17igVY9r2C15j3L5eH_AkdnIsYm_tTng7g1y9sZ6zTqGUfB5Xp7vYGeyB3dnV8ZvNQc5ai4Vh0igKbtEoCZ9AMrUC81fv2b3gvGf95X8QrSNG_crMz_dIUIGEOFXoEfWR1fFbYVvXaCwD0RDUcK0YX86Rqg"/>
+</div>
+<!-- Bottom Center: Roast Box -->
+<div class="z-20 w-full max-w-2xl mb-16 relative">
+<div class="bg-[#1a0a1a] border border-antim-sanskar/40 p-6 md:p-8 torn-paper relative z-10 shadow-lg backdrop-blur-md">
+<p class="font-scenario-text text-scenario-text text-[#E9D5FF] italic text-center leading-relaxed">
+                    "Jugaad. The only thing you can't fix with duct tape is your future. Sharma Ji's son is currently applying for his third patent while you're still looking for the end of the tape roll."
+                </p>
+</div>
+<!-- Bottom Label -->
+<div class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-void px-4 z-20">
+<span class="font-label-sm text-label-sm text-jugaad uppercase tracking-widest bg-void inline-block">
+                    Sharma Ji Would Have...
+                </span>
+</div>
+</div>
+<!-- Footers Details -->
+<div class="absolute bottom-4 left-6 z-20">
+<span aria-label="gravestone" class="text-4xl filter drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]" role="img">🪦</span>
+</div>
+<div class="absolute bottom-4 right-6 z-20 opacity-80">
+<span class="font-display-xl text-4xl text-primary tracking-tighter uppercase">FLATLINE</span>
+</div>
+</div>
+</body></html>

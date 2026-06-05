@@ -20,87 +20,68 @@ export function VerdictReveal({ results, myPlayerId, isHost, onNext }: VerdictRe
     if (revealedCount < results.length) {
       const timer = setTimeout(() => {
         setRevealedCount((c) => c + 1);
-      }, 1500);
+      }, 2500); // Slower reveal for high drama
       return () => clearTimeout(timer);
     }
   }, [revealedCount, results.length]);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        paddingTop: '24px',
-        paddingBottom: '24px',
-        minHeight: '100dvh',
-      }}
-    >
-      {/* Title */}
-      <div
-        className="font-display"
-        style={{
-          fontSize: '1.5rem',
-          color: 'var(--red-flatline)',
-          textAlign: 'center',
-          marginBottom: '8px',
-        }}
-      >
-        VERDICTS
+    <div className="bg-void text-on-surface min-h-screen flex flex-col font-body-base overflow-x-hidden relative pb-24">
+      {/* Optional Top Bar area (empty or for future use) */}
+      <div className="w-full pt-8 px-gutter flex justify-between items-center mb-4">
+        <div className="font-timer-mono text-jugaad opacity-70">
+          RESULTS
+        </div>
+        <div className="font-display text-2xl text-primary tracking-tighter uppercase opacity-50">
+          FLATLINE
+        </div>
       </div>
 
-      {/* Verdict Cards */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
-        {results.slice(0, revealedCount).map((result, index) => (
+      <main className="w-full max-w-4xl mx-auto px-gutter flex flex-col items-center">
+        {/* Verdict Cards Stack */}
+        <div className="w-full flex flex-col gap-12">
+          {results.slice(0, revealedCount).map((result, index) => (
+            <motion.div
+              key={result.playerId}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              <VerdictCard
+                playerName={result.playerName}
+                character={result.character}
+                verdict={result.verdict}
+                narration={result.narration}
+                roastText={result.roastText}
+                isMyVerdict={result.playerId === myPlayerId}
+              />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Next button (host only, after all revealed) */}
+        {allRevealed && (
           <motion.div
-            key={result.playerId}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+            className="mt-16 w-full"
           >
-            <VerdictCard
-              playerName={result.playerName}
-              character={result.character}
-              verdict={result.verdict}
-              narration={result.narration}
-              roastText={result.roastText}
-              isMyVerdict={result.playerId === myPlayerId}
-            />
+            {isHost ? (
+              <button
+                className="w-full py-5 bg-primary text-on-primary font-display text-[32px] leading-none uppercase rounded shadow-[0_0_15px_rgba(255,84,74,0.3)] hover:bg-primary-container transition-all active:scale-95 flex items-center justify-center gap-2"
+                onClick={onNext}
+              >
+                NEXT ROUND <span className="material-symbols-outlined text-[32px]" style={{ fontVariationSettings: "'FILL' 0" }}>arrow_forward</span>
+              </button>
+            ) : (
+              <p className="font-timer-mono text-center text-on-surface-variant uppercase tracking-widest text-sm opacity-50">
+                WAITING FOR HOST TO CONTINUE...
+              </p>
+            )}
           </motion.div>
-        ))}
-      </div>
-
-      {/* Next button (host only, after all revealed) */}
-      {allRevealed && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          {isHost ? (
-            <button
-              className="btn btn-primary"
-              onClick={onNext}
-              style={{
-                width: '100%',
-                padding: '14px',
-                fontSize: '1rem',
-                fontFamily: 'var(--font-display)',
-                letterSpacing: '0.1em',
-              }}
-            >
-              SHARMA JI KA BETA →
-            </button>
-          ) : (
-            <p
-              className="font-mono"
-              style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center' }}
-            >
-              Waiting for host...
-            </p>
-          )}
-        </motion.div>
-      )}
+        )}
+      </main>
     </div>
   );
 }
