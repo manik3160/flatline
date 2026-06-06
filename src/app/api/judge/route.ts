@@ -66,10 +66,11 @@ export async function POST(request: Request) {
         judgeData = {
           results: answers.map((a: { playerId: string; playerName: string; answerText: string }) => ({
             playerId: a.playerId,
-            verdict: a.answerText ? 'BACH_GAYA' : 'BARBAD',
+            verdict: a.answerText ? 'BACH_GAYA' : 'ANTIM_SANSKAR',
             narration: a.answerText
               ? 'AI had a brain freeze, but you probably survived. Theek hai.'
-              : 'No answer submitted. RIP.',
+              : 'No answer submitted. The AI was too busy crashing to roast you.',
+            roastText: a.answerText ? undefined : 'You literally submitted nothing. What did you expect?'
           })),
           sharmaJiAnswer: 'Sharma Ji Ka Beta would have handled it perfectly, but even the AI broke trying to judge this round.',
         };

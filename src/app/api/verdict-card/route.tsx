@@ -160,7 +160,7 @@ export async function GET(request: NextRequest) {
                 marginTop: '2rem',
               }}
             >
-              "{roastText || narration}"
+              &quot;{roastText || narration}&quot;
             </div>
           </div>
 

@@ -92,7 +92,7 @@ export function VerdictCard({
         <div className="z-20 w-full max-w-2xl relative mt-4">
           <div className="bg-[#1a0a1a] border border-antim-sanskar/40 p-6 relative z-10 shadow-lg backdrop-blur-md" style={{ clipPath: 'polygon(0% 2%, 2% 0%, 98% 1%, 100% 3%, 99% 97%, 97% 100%, 3% 98%, 0% 99%)' }}>
             <p className="font-scenario-text text-scenario-text text-[#E9D5FF] italic text-center leading-relaxed">
-              "{roastText || narration}"
+              &quot;{roastText || narration}&quot;
             </p>
           </div>
           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 z-20">
@@ -140,7 +140,7 @@ export function VerdictCard({
 
       {/* Narration Text */}
       <p className="font-scenario-text text-scenario-text text-center italic text-on-surface max-w-2xl leading-relaxed">
-        "{narration}"
+        &quot;{narration}&quot;
       </p>
     </motion.div>
   );

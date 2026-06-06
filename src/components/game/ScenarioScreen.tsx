@@ -87,7 +87,7 @@ export function ScenarioScreen({
             className="font-scenario-text text-scenario-text md:text-5xl md:leading-tight text-white drop-shadow-lg"
             style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)' }}
           >
-            "{scenario}"
+            &quot;{scenario}&quot;
           </motion.p>
           <motion.p 
             initial={{ opacity: 0 }}

@@ -19,11 +19,6 @@ export default function HomePage() {
   const [roomCode, setRoomCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [sessionId, setSessionId] = useState('');
-
-  useEffect(() => {
-    setSessionId(getSessionId());
-  }, []);
 
   const handleCreateRoom = async () => {
     if (!name.trim()) {
@@ -39,6 +34,7 @@ export default function HomePage() {
     setError('');
 
     try {
+      const sessionId = getSessionId();
       const payload = { 
         playerName: name.trim(), 
         character, 
@@ -100,6 +96,7 @@ export default function HomePage() {
     setError('');
 
     try {
+      const sessionId = getSessionId();
       const payload = { 
         playerName: name.trim(), 
         character, 
