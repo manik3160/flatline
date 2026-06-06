@@ -22,6 +22,7 @@ interface GameStore {
   category: ScenarioCategory;
   totalRounds: number;
   currentRound: number;
+  roundDuration: number;
 
   // Players
   players: PlayerRow[];
@@ -73,6 +74,7 @@ interface GameStore {
     category: ScenarioCategory;
     totalRounds: number;
   }) => void;
+  setRoundDuration: (duration: number) => void;
   setHasSubmitted: (submitted: boolean) => void;
   resetRound: () => void;
   reset: () => void;
@@ -89,6 +91,7 @@ const initialState = {
   category: 'mixed' as ScenarioCategory,
   totalRounds: 5,
   currentRound: 0,
+  roundDuration: 75,
   players: [] as PlayerRow[],
   phase: 'LOBBY' as GamePhase,
   scenario: null as string | null,
@@ -163,6 +166,8 @@ export const useGameStore = create<GameStore>((set) => ({
   setIdentity: (data) => set(data),
 
   setRoom: (data) => set(data),
+
+  setRoundDuration: (duration) => set({ roundDuration: duration }),
 
   setHasSubmitted: (submitted) => set({ hasSubmitted: submitted }),
 

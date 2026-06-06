@@ -239,8 +239,10 @@ export default function RoomPage({ params }: RoomPageProps) {
         setTimeout(async () => {
           // Set deadlines in DB
           const now = new Date();
-          const answerDeadline = new Date(now.getTime() + 75 * 1000).toISOString();
-          const plotTwistDeadline = new Date(now.getTime() + 45 * 1000).toISOString();
+          const durationSec = store.roundDuration || 75;
+          const twistDelaySec = Math.floor(durationSec * 0.6); // Plot twist comes at 60% time
+          const answerDeadline = new Date(now.getTime() + durationSec * 1000).toISOString();
+          const plotTwistDeadline = new Date(now.getTime() + twistDelaySec * 1000).toISOString();
 
           await supabase
             .from('rooms')
@@ -510,18 +512,6 @@ function AnsweringPhase({ roomCode }: { roomCode: string }) {
     }
   };
 
-  useEffect(() => {
-    const activePlayersCount = store.players.filter((p) => p.is_active).length;
-    if (
-      store.isHost &&
-      activePlayersCount > 0 &&
-      store.submittedPlayerIds.length >= activePlayersCount
-    ) {
-      handleTimeUp();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.submittedPlayerIds.length, store.players, store.isHost]);
-
   return (
     <AnsweringScreen
       scenario={store.scenario || ''}
@@ -540,6 +530,9 @@ function AnsweringPhase({ roomCode }: { roomCode: string }) {
       onTimeUp={handleTimeUp}
       roundNumber={store.currentRound}
       totalRounds={store.totalRounds}
+      isHost={store.isHost}
+      onTwistReveal={() => store.setHasSubmitted(false)}
+      roundDuration={store.roundDuration}
     />
   );
 }
@@ -676,8 +669,10 @@ function RoundScoresDisplay({ roomCode }: { roomCode: string }) {
 
       setTimeout(async () => {
         const now = new Date();
-        const answerDeadline = new Date(now.getTime() + 75 * 1000).toISOString();
-        const plotTwistDeadline = new Date(now.getTime() + 45 * 1000).toISOString();
+        const durationSec = store.roundDuration || 75;
+        const twistDelaySec = Math.floor(durationSec * 0.6);
+        const answerDeadline = new Date(now.getTime() + durationSec * 1000).toISOString();
+        const plotTwistDeadline = new Date(now.getTime() + twistDelaySec * 1000).toISOString();
 
         await supabase
           .from('rooms')

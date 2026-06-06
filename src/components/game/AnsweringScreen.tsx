@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PlotTwistBanner } from '@/components/game/PlotTwistBanner';
 
@@ -21,6 +21,9 @@ interface AnsweringScreenProps {
   onTimeUp: () => void;
   roundNumber: number;
   totalRounds: number;
+  isHost: boolean;
+  onTwistReveal: () => void;
+  roundDuration: number;
 }
 
 export function AnsweringScreen({
@@ -40,6 +43,9 @@ export function AnsweringScreen({
   onTimeUp,
   roundNumber,
   totalRounds,
+  isHost,
+  onTwistReveal,
+  roundDuration,
 }: AnsweringScreenProps) {
   const [showPlotTwist, setShowPlotTwist] = useState(false);
   const [showLifelineModal, setShowLifelineModal] = useState(false);
@@ -64,19 +70,22 @@ export function AnsweringScreen({
   }, [answerDeadline, onTimeUp]);
 
   // Check for plot twist timing
+  const twistRevealed = useRef(false);
   useEffect(() => {
     if (!plotTwistDeadline) return;
 
     const check = () => {
-      if (Date.now() >= plotTwistDeadline) {
+      if (Date.now() >= plotTwistDeadline && !twistRevealed.current) {
+        twistRevealed.current = true;
         setShowPlotTwist(true);
+        onTwistReveal();
       }
     };
 
     check();
     const interval = setInterval(check, 1000);
     return () => clearInterval(interval);
-  }, [plotTwistDeadline]);
+  }, [plotTwistDeadline, onTwistReveal]);
 
   const handleLifeline = useCallback(async () => {
     if (lifelineUsed) return;
@@ -88,7 +97,7 @@ export function AnsweringScreen({
 
   const seconds = Math.floor(timeLeft / 1000);
   const milliseconds = Math.floor((timeLeft % 1000) / 10).toString().padStart(2, '0');
-  const maxTime = 75000; // 75s
+  const maxTime = (roundDuration || 75) * 1000;
   const progressPercent = Math.max(0, Math.min(100, (timeLeft / maxTime) * 100));
 
   return (
@@ -107,13 +116,24 @@ export function AnsweringScreen({
       </header>
 
       {/* Main Content Canvas */}
-      <main className="flex-grow flex flex-col justify-center px-gutter md:px-margin-desktop pt-24 pb-24 z-10 w-full max-w-4xl mx-auto h-full min-h-screen">
+      <main 
+        className="flex-grow flex flex-col px-4 md:px-8 z-10 w-full max-w-4xl mx-auto min-h-screen"
+        style={{ paddingTop: '7rem', paddingBottom: '2rem' }}
+      >
         
         {/* Timer UI */}
         <div className="mb-4 w-full">
           <div className="flex justify-between items-end mb-2">
-            <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">
+            <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
               Round {roundNumber}/{totalRounds} • Time Remaining
+              {isHost && (
+                <button 
+                  onClick={onTimeUp}
+                  className="ml-2 px-2 py-0.5 bg-error/20 text-error border border-error/50 rounded text-[10px] hover:bg-error hover:text-on-error transition-colors cursor-pointer"
+                >
+                  FORCE END
+                </button>
+              )}
             </span>
             <div className={`font-timer-mono text-timer-mono text-primary ${timeLeft < 15000 ? 'animate-pulse' : ''} drop-shadow-[0_0_10px_rgba(255,84,74,0.8)]`}>
               {seconds}.{milliseconds}s

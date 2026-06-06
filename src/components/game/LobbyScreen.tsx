@@ -26,7 +26,7 @@ interface LobbyScreenProps {
 
 export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps) {
   const router = useRouter();
-  const { roomCode, players, isHost, category, totalRounds, playerName, character, reset } = useGameStore();
+  const { roomCode, players, isHost, category, totalRounds, playerName, character, reset, roundDuration, setRoundDuration } = useGameStore();
 
   const activePlayers = players.filter((p) => p.is_active);
   const canStart = activePlayers.length >= 2;
@@ -172,6 +172,22 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
                     {n}
                   </button>
                 ))}
+              </div>
+            </div>
+
+            {/* Duration Selector */}
+            <div className="flex flex-col" style={{ gap: '1rem' }}>
+              <label className="font-timer-mono text-[12px] text-on-surface-variant/60 uppercase tracking-widest">Time Per Round (Secs)</label>
+              <div className="flex items-center gap-4">
+                <input
+                  type="number"
+                  min="30"
+                  max="300"
+                  value={roundDuration}
+                  onChange={(e) => setRoundDuration(Math.max(30, Math.min(300, Number(e.target.value) || 75)))}
+                  className="bg-surface-container/50 border border-outline-variant/50 text-tertiary font-timer-mono text-[24px] w-24 h-14 rounded-xl flex items-center justify-center text-center focus:border-tertiary/80 focus:shadow-[0_0_15px_rgba(107,211,253,0.2)] focus:outline-none transition-all"
+                />
+                <span className="font-timer-mono text-on-surface-variant uppercase">Seconds</span>
               </div>
             </div>
 
