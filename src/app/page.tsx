@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { CharacterCard } from '@/components/ui/CharacterCard';
 import { EkgLine } from '@/components/ui/EkgLine';
 import { CHARACTER_LIST } from '@/lib/game/characters';
@@ -11,7 +11,7 @@ import type { CharacterType } from '@/types';
 import { useGameStore } from '@/store/gameStore';
 
 // Stagger animation variants
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -22,7 +22,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
@@ -31,7 +31,7 @@ const itemVariants = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.9, y: 20 },
   visible: {
     opacity: 1,
@@ -41,7 +41,7 @@ const cardVariants = {
   },
 };
 
-const characterVariants = {
+const characterVariants: Variants = {
   hidden: { opacity: 0, scale: 0.8, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
