@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { PlayerRow } from '@/types';
+import { useGameStore } from '@/store/gameStore';
 
 interface GameOverProps {
   players: PlayerRow[];
@@ -17,6 +19,46 @@ const CHARACTER_IMAGES: Record<string, string> = {
 
 export function GameOver({ players, onPlayAgain }: GameOverProps) {
   const sorted = [...players].sort((a, b) => b.score - a.score);
+  const { playerId, currentRoundId, isHost } = useGameStore();
+  const [isSharing, setIsSharing] = useState(false);
+
+  const handleShare = async () => {
+    if (!playerId || !currentRoundId) return;
+    
+    try {
+      setIsSharing(true);
+      const url = `/api/verdict-card?playerId=${playerId}&roundId=${currentRoundId}&format=story`;
+      
+      // Fetch the image
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const file = new File([blob], 'flatline-verdict.png', { type: 'image/png' });
+
+      // Try native share if available (Mobile)
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: 'My Flatline Verdict',
+          text: 'I just survived (or didn\'t) a desi scenario in Flatline!',
+          files: [file],
+        });
+      } else {
+        // Fallback to download
+        const objectUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = objectUrl;
+        a.download = 'flatline-verdict.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(objectUrl);
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      alert('Failed to share card. Please try again.');
+    } finally {
+      setIsSharing(false);
+    }
+  };
 
   return (
     <div className="bg-void text-on-surface min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
@@ -27,7 +69,7 @@ export function GameOver({ players, onPlayAgain }: GameOverProps) {
       ></div>
 
       {/* Main Canvas */}
-      <main className="relative z-10 flex-1 flex flex-col max-w-5xl mx-auto w-full px-gutter py-margin-mobile md:py-margin-desktop">
+      <main className="relative z-10 flex-1 flex flex-col max-w-5xl mx-auto w-full px-gutter py-margin-mobile md:py-margin-desktop pb-24">
         
         {/* Header Section */}
         <header className="text-center mb-12 flex flex-col items-center justify-center">
@@ -111,14 +153,28 @@ export function GameOver({ players, onPlayAgain }: GameOverProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6"
+          className="mt-16 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-6"
         >
-          <button 
-            onClick={onPlayAgain}
-            className="bg-primary text-on-primary font-display text-3xl uppercase px-12 py-5 rounded tracking-[0.1em] hover:bg-primary-container transition-all shadow-[0_0_15px_rgba(255,84,74,0.3)] hover:shadow-[0_0_25px_rgba(255,84,74,0.6)] transform hover:-translate-y-1 w-full sm:w-auto"
-          >
-            PLAY AGAIN
-          </button>
+          {playerId && currentRoundId && (
+            <button 
+              onClick={handleShare}
+              disabled={isSharing}
+              className="bg-jugaad text-void font-display text-3xl uppercase px-12 py-5 rounded tracking-[0.1em] hover:bg-yellow-400 transition-all shadow-[0_0_15px_rgba(255,215,0,0.3)] hover:shadow-[0_0_25px_rgba(255,215,0,0.6)] transform hover:-translate-y-1 w-full sm:w-auto flex items-center justify-center gap-3 disabled:opacity-50 disabled:transform-none"
+            >
+              <span className="material-symbols-outlined">{isSharing ? 'hourglass_empty' : 'share'}</span>
+              {isSharing ? 'Generating...' : 'Share My Results'}
+            </button>
+          )}
+
+          {isHost && (
+            <button 
+              onClick={onPlayAgain}
+              className="bg-primary text-on-primary font-display text-3xl uppercase px-12 py-5 rounded tracking-[0.1em] hover:bg-primary-container transition-all shadow-[0_0_15px_rgba(255,84,74,0.3)] hover:shadow-[0_0_25px_rgba(255,84,74,0.6)] transform hover:-translate-y-1 w-full sm:w-auto"
+            >
+              PLAY AGAIN
+            </button>
+          )}
+
           <button 
             onClick={() => window.location.href = '/'}
             className="border border-outline-variant text-on-surface-variant font-display text-3xl uppercase px-12 py-5 rounded tracking-[0.1em] hover:bg-surface-container-high hover:text-on-surface hover:border-outline transition-all w-full sm:w-auto"
