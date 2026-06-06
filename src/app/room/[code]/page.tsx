@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback, use } from 'react';
+import { useEffect, useState, useCallback, use, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSupabase } from '@/components/providers/SupabaseProvider';
 import { useGameStore } from '@/store/gameStore';
@@ -384,6 +384,7 @@ function ScenarioDisplay() {
 function AnsweringPhase({ roomCode }: { roomCode: string }) {
   const store = useGameStore();
   const supabase = useSupabase();
+  const timeUpTriggered = useRef(false);
 
   const handleSubmit = async () => {
     if (!store.playerId || !store.currentRoundId) return;
@@ -433,6 +434,9 @@ function AnsweringPhase({ roomCode }: { roomCode: string }) {
   };
 
   const handleTimeUp = async () => {
+    if (timeUpTriggered.current) return;
+    timeUpTriggered.current = true;
+
     if (!store.hasSubmitted) {
       // Auto-submit
       await handleSubmit();
@@ -505,6 +509,18 @@ function AnsweringPhase({ roomCode }: { roomCode: string }) {
       }, 2000);
     }
   };
+
+  useEffect(() => {
+    const activePlayersCount = store.players.filter((p) => p.is_active).length;
+    if (
+      store.isHost &&
+      activePlayersCount > 0 &&
+      store.submittedPlayerIds.length >= activePlayersCount
+    ) {
+      handleTimeUp();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.submittedPlayerIds.length, store.players, store.isHost]);
 
   return (
     <AnsweringScreen
