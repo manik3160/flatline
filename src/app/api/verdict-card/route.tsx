@@ -2,10 +2,9 @@ import { NextRequest } from 'next/server';
 import { getSupabaseServer } from '@/lib/supabase/server';
 import { ImageResponse } from '@vercel/og';
 
-// @vercel/og supports rendering React elements natively without importing React
-// It's recommended to export config to edge if possible, but we're relying on Supabase client
-// so keeping it standard is fine, or we can use edge if our Supabase client supports it.
-export const runtime = 'edge';
+// Using nodejs runtime because @vercel/og exceeds Vercel's 1MB edge function limit on free tier.
+// @vercel/og works identically on both edge and nodejs runtimes.
+export const runtime = 'nodejs';
 
 export async function GET(request: NextRequest) {
   try {
