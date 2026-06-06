@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   description:
     'Survive the chaos. Or don\'t. A real-time multiplayer AI party game for Indian GenZ — type your survival plan, let the AI judge your fate.',
   keywords: ['party game', 'AI game', 'multiplayer', 'Indian', 'desi', 'survival'],
-  metadataBase: new URL('https://flatline.vercel.app'), // Will automatically resolve to deployment URL if configured
+  metadataBase: new URL('https://flatlinegame.vercel.app'), // Will automatically resolve to deployment URL if configured
   openGraph: {
     title: 'Flatline — AI Survival Party Game',
     description: 'Survive the chaos. Or don\'t.',
-    url: 'https://flatline.vercel.app',
+    url: 'https://flatlinegame.vercel.app',
     siteName: 'Flatline',
     locale: 'en_IN',
     type: 'website',
