@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { getSecondsRemaining } from '@/lib/utils';
 
 interface TimerBarProps {
@@ -33,49 +34,39 @@ export function TimerBar({ deadline, totalSeconds, onExpire }: TimerBarProps) {
   const isCritical = remaining <= 10;
 
   const barColor = isCritical
-    ? 'var(--red-flatline)'
+    ? 'var(--color-inverse-primary)'
     : isUrgent
-      ? 'var(--orange-barbad)'
+      ? 'var(--color-barbad)'
       : remaining <= totalSeconds * 0.5
         ? '#eab308'
-        : 'var(--green-bach)';
+        : 'var(--color-bach-gaya)';
 
   return (
-    <div style={{ width: '100%' }}>
+    <div className="w-full">
       {/* Timer Number */}
-      <div
-        className="font-mono"
+      <motion.div
+        className={`font-timer-mono text-[2rem] font-semibold text-center mb-2 ${
+          isCritical ? 'text-primary-container' : 'text-on-surface'
+        }`}
+        animate={isCritical ? { opacity: [1, 0.3, 1] } : { opacity: 1 }}
+        transition={isCritical ? { duration: 0.5, repeat: Infinity } : {}}
         style={{
-          fontSize: '2rem',
-          fontWeight: 600,
-          textAlign: 'center',
-          color: isCritical ? 'var(--red-flatline)' : 'var(--text-primary)',
-          animation: isCritical ? 'timer-flash 0.5s infinite' : 'none',
-          marginBottom: '8px',
+          textShadow: isCritical ? '0 0 15px rgba(255,84,74,0.6)' : 'none',
         }}
       >
         {remaining}s
-      </div>
+      </motion.div>
 
       {/* Bar */}
-      <div
-        style={{
-          width: '100%',
-          height: '4px',
-          background: 'var(--bg-surface)',
-          borderRadius: '2px',
-          overflow: 'hidden',
-        }}
-      >
-        <div
+      <div className="w-full h-[6px] bg-surface-container-high rounded-full overflow-hidden border border-outline-variant/30">
+        <motion.div
+          className="h-full rounded-full"
           style={{
             width: `${pct}%`,
-            height: '100%',
             background: barColor,
-            borderRadius: '2px',
-            transition: 'width 1s linear, background 0.3s ease',
-            boxShadow: isCritical ? `0 0 8px ${barColor}` : 'none',
+            boxShadow: isCritical ? `0 0 12px ${barColor}` : `0 0 4px ${barColor}40`,
           }}
+          transition={{ width: { duration: 1, ease: 'linear' } }}
         />
       </div>
     </div>

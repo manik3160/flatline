@@ -4,6 +4,7 @@
    ═══════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Geist+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 @import "tailwindcss";
 
 @theme {
@@ -73,6 +74,7 @@
   --font-verdict-lg: 'Bebas Neue', sans-serif;
   --font-timer-mono: 'Geist Mono', monospace;
   --font-display-xl: 'Bebas Neue', sans-serif;
+  --font-display: 'Bebas Neue', sans-serif;
 
   --text-body-base: 16px;
   --text-body-base--line-height: 24px;
@@ -133,6 +135,18 @@ body {
 
 /* ─── Material Symbols ─── */
 .material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
@@ -189,4 +203,274 @@ body {
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PREMIUM ANIMATIONS & EFFECTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Heartbeat Pulse ─── */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  5% { transform: scale(1.05); }
+  10% { transform: scale(1); }
+  15% { transform: scale(1.08); }
+  20% { transform: scale(1); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+/* ─── Scan Line ─── */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,180,171,0.15), transparent);
+  z-index: 100;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+}
+
+/* ─── CRT Vignette ─── */
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* ─── Floating Particles ─── */
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) scale(1);
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-10vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.particle {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 180, 171, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle:nth-child(1) { left: 10%; animation: float-up 12s linear infinite; animation-delay: 0s; }
+.particle:nth-child(2) { left: 25%; animation: float-up 15s linear infinite; animation-delay: 2s; }
+.particle:nth-child(3) { left: 40%; animation: float-up 10s linear infinite; animation-delay: 4s; }
+.particle:nth-child(4) { left: 55%; animation: float-up 13s linear infinite; animation-delay: 1s; }
+.particle:nth-child(5) { left: 70%; animation: float-up 11s linear infinite; animation-delay: 3s; }
+.particle:nth-child(6) { left: 85%; animation: float-up 14s linear infinite; animation-delay: 5s; }
+.particle:nth-child(7) { left: 50%; animation: float-up 16s linear infinite; animation-delay: 7s; }
+.particle:nth-child(8) { left: 15%; animation: float-up 9s linear infinite; animation-delay: 6s; }
+
+/* ─── Glassmorphism Cards ─── */
+.glass-card {
+  background: rgba(17, 17, 17, 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 180, 171, 0.1);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(17, 17, 17, 0.75);
+  border-color: rgba(255, 180, 171, 0.25);
+  box-shadow: 
+    0 8px 32px rgba(255, 84, 74, 0.15),
+    0 0 0 1px rgba(255, 180, 171, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transform: translateY(-4px);
+}
+
+.glass-card-active {
+  background: rgba(17, 17, 17, 0.75);
+  border-color: rgba(255, 180, 171, 0.3) !important;
+  box-shadow: 
+    0 8px 32px rgba(255, 84, 74, 0.2),
+    0 0 0 1px rgba(255, 180, 171, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Glowing Text ─── */
+.glow-text-red {
+  text-shadow: 
+    0 0 10px rgba(255, 84, 74, 0.5),
+    0 0 40px rgba(255, 84, 74, 0.2),
+    0 0 80px rgba(255, 84, 74, 0.1);
+}
+
+.glow-text-primary {
+  text-shadow: 
+    0 0 10px rgba(255, 180, 171, 0.4),
+    0 0 30px rgba(255, 180, 171, 0.15);
+}
+
+/* ─── Title Shimmer ─── */
+@keyframes title-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.title-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-primary-container) 25%,
+    #fff 50%,
+    var(--color-primary-container) 75%,
+    var(--color-primary) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: title-shimmer 4s linear infinite;
+}
+
+/* ─── Pulsing Ring ─── */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 84, 74, 0.5);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 84, 74, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 84, 74, 0);
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ─── Character Selection Ring ─── */
+@keyframes rotate-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.character-ring-selected::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  padding: 3px;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-primary-container),
+    var(--color-primary),
+    var(--color-primary-container),
+    var(--color-primary),
+    var(--color-primary-container)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate-border 3s linear infinite;
+}
+
+/* ─── Input Focus Glow ─── */
+.input-glow:focus {
+  box-shadow: 
+    0 2px 0 0 var(--color-primary),
+    0 4px 15px rgba(255, 84, 74, 0.15);
+}
+
+/* ─── Staggered Entrance ─── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* ─── Subtle Noise Texture ─── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 98;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ─── Smooth hover transforms ─── */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+}
+
+/* ─── Animated underline for inputs ─── */
+.input-underline {
+  position: relative;
+}
+.input-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary-container);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(255, 84, 74, 0.5);
+}
+.input-underline:focus-within::after {
+  width: 100%;
+}
+
+/* ─── Red/Jugaad border colors for chars ─── */
+.border-red-flatline { border-color: var(--color-inverse-primary); }
+.text-red-flatline { color: var(--color-inverse-primary); }
+
+/* animate-shimmer for PlotTwistBanner */
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
 }

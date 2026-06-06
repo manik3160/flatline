@@ -1,13 +1,59 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CharacterCard } from '@/components/ui/CharacterCard';
+import { EkgLine } from '@/components/ui/EkgLine';
 import { CHARACTER_LIST } from '@/lib/game/characters';
 import { getSessionId } from '@/lib/utils';
 import type { CharacterType } from '@/types';
 import { useGameStore } from '@/store/gameStore';
+
+// Stagger animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const characterVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      delay: 0.6 + i * 0.1,
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
 
 export default function HomePage() {
   const router = useRouter();
@@ -140,52 +186,100 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start pt-8 md:pt-16 px-gutter md:px-margin-desktop pb-32 min-h-screen relative overflow-x-hidden">
+    <div className="flex flex-col items-center justify-start min-h-screen relative overflow-hidden">
+      {/* Ambient Effects */}
+      <div className="scan-line" />
+      <div className="vignette" />
+      <div className="noise-overlay" />
+      
+      {/* Floating particles */}
+      <div className="particle" />
+      <div className="particle" />
+      <div className="particle" />
+      <div className="particle" />
+      <div className="particle" />
+      <div className="particle" />
+      <div className="particle" />
+      <div className="particle" />
+
       {/* Background Layer */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-void opacity-80 z-10 mix-blend-multiply"></div>
-        {/* We can use a generic hospital background if we have one, otherwise fallback to the provided URL */}
-        <img alt="Hospital Corridor Background" className="w-full h-full object-cover object-center opacity-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSmUCotgR_bneeSLpFyEeOrs0ozK_lBF7kEZFrOF9gQ6arkhDtfDa_lDsLv5svntybnMLCapgcN9VPacEQtdaYW4yhJpqozcrZ4rjbCy4l11nZS1mag4mLVzaBCMv0KcTeIvheA7RHPkhG6bFnuctJ2UYcdXRU6hmquAE3lnFsbM0L4Kdj1HVm7Yg_X4A2nYOqh8Fz6PSFL9Rkm52VMBHeI1OlT_lgF_8eZHRm59wrHxMfPWLTU12r4-cxa4u8Tilm1V6zFOH1xaQ"/>
+        <img alt="Hospital Corridor Background" className="w-full h-full object-cover object-center opacity-30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSmUCotgR_bneeSLpFyEeOrs0ozK_lBF7kEZFrOF9gQ6arkhDtfDa_lDsLv5svntybnMLCapgcN9VPacEQtdaYW4yhJpqozcrZ4rjbCy4l11nZS1mag4mLVzaBCMv0KcTeIvheA7RHPkhG6bFnuctJ2UYcdXRU6hmquAE3lnFsbM0L4Kdj1HVm7Yg_X4A2nYOqh8Fz6PSFL9Rkm52VMBHeI1OlT_lgF_8eZHRm59wrHxMfPWLTU12r4-cxa4u8Tilm1V6zFOH1xaQ"/>
       </div>
 
       {/* Main Content Canvas */}
-      <main className="relative z-10 flex-grow flex flex-col items-center justify-start w-full">
+      <motion.main 
+        className="relative z-10 flex-grow flex flex-col items-center justify-start w-full pt-12 md:pt-20 px-4 md:px-12 pb-32"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {/* Header Section */}
         <motion.header 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center mb-8 text-center max-w-3xl mx-auto w-full"
+          variants={itemVariants}
+          className="flex flex-col items-center mb-6 text-center max-w-3xl mx-auto w-full"
         >
-          <div className="font-display text-display-xl text-primary tracking-tighter uppercase drop-shadow-2xl" style={{ fontSize: 'clamp(4rem, 15vw, 6rem)', lineHeight: 1 }}>FLATLINE</div>
-          <h2 className="font-scenario-text text-scenario-text text-primary italic opacity-90 mt-2">Survive the chaos. Or don&apos;t.</h2>
+          <motion.div 
+            className="font-display title-shimmer tracking-tighter uppercase drop-shadow-2xl select-none" 
+            style={{ fontSize: 'clamp(4rem, 15vw, 7rem)', lineHeight: 0.9 }}
+            animate={{ 
+              textShadow: [
+                '0 0 20px rgba(255,84,74,0.3)',
+                '0 0 40px rgba(255,84,74,0.5)',
+                '0 0 20px rgba(255,84,74,0.3)',
+              ]
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            FLATLINE
+          </motion.div>
+          <motion.h2 
+            className="font-scenario-text text-scenario-text text-primary italic opacity-80 mt-3"
+            initial={{ opacity: 0, letterSpacing: '0.3em' }}
+            animate={{ opacity: 0.8, letterSpacing: '0.05em' }}
+            transition={{ delay: 0.8, duration: 1, ease: 'easeOut' }}
+          >
+            Survive the chaos. Or don&apos;t.
+          </motion.h2>
         </motion.header>
 
-        {/* EKG Separator */}
-        <div className="w-full max-w-3xl my-8 opacity-60">
-          <div className="ekg-line"></div>
-        </div>
+        {/* Animated EKG Line */}
+        <motion.div 
+          variants={itemVariants}
+          className="w-full max-w-3xl my-4"
+        >
+          <EkgLine 
+            color="var(--color-primary)" 
+            animationDuration={3} 
+            height={40}
+          />
+        </motion.div>
 
         {/* Error Message */}
         <AnimatePresence>
           {error && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="bg-error-container text-on-error-container border border-error px-6 py-3 rounded-lg mb-6 text-center w-full max-w-md font-body-base font-semibold shadow-lg"
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              className="bg-error-container/80 backdrop-blur-md text-on-error-container border border-error/40 px-6 py-3 rounded-xl mb-6 text-center w-full max-w-md font-body-base font-semibold shadow-lg shadow-error/10"
             >
-              {error}
+              <span className="flex items-center justify-center gap-2">
+                <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
+                {error}
+              </span>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Name Input */}
-        <div className="w-full max-w-md mb-8">
-          <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest block text-center mb-3">Your Name</label>
-          <div className="relative">
+        <motion.div variants={itemVariants} className="w-full max-w-md mb-8">
+          <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest block text-center mb-3 opacity-70">Your Name</label>
+          <div className="relative input-underline">
              <input
-               className="bg-surface-container-lowest border-b-2 border-border-default text-center font-display text-[2rem] text-primary focus:outline-none focus:border-primary placeholder-on-surface-variant bg-transparent w-full py-2 tracking-widest transition-colors"
+               className="bg-transparent border-b-2 border-outline-variant text-center font-display text-[2rem] text-primary focus:outline-none placeholder-on-surface-variant/40 w-full py-3 tracking-widest transition-all duration-300 input-glow"
                placeholder="ENTER NAME"
                type="text"
                value={name}
@@ -193,45 +287,85 @@ export default function HomePage() {
                maxLength={15}
              />
           </div>
-        </div>
+        </motion.div>
 
         {/* Action Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl mb-12">
+        <motion.div 
+          variants={itemVariants}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-12"
+        >
           {/* Create Room Card */}
-          <button 
+          <motion.button 
             onClick={handleCreateRoom}
             disabled={loading}
-            className="group relative bg-surface border border-border-default rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-glow-active hover:-translate-y-1 overflow-hidden"
+            className="glass-card group relative p-8 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <div className="absolute inset-0 bg-primary-container opacity-0 group-hover:opacity-5 transition-opacity"></div>
+            {/* Hover gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-container/0 via-transparent to-primary/0 group-hover:from-primary-container/10 group-hover:to-primary/5 transition-all duration-500" />
+            
+            {/* Top accent line */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-container/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
             {loading && !roomCode ? (
-              <span className="material-symbols-outlined text-primary mb-4 animate-spin" style={{ fontSize: '64px' }}>refresh</span>
+              <motion.span 
+                className="material-symbols-outlined text-primary mb-4"
+                style={{ fontSize: '56px' }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              >refresh</motion.span>
             ) : (
-              <span className="material-symbols-outlined text-primary mb-4" style={{ fontSize: '64px' }}>add_circle</span>
+              <motion.span 
+                className="material-symbols-outlined text-primary mb-4 relative z-10"
+                style={{ fontSize: '56px', fontVariationSettings: "'FILL' 1" }}
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                transition={{ type: 'spring', stiffness: 200 }}
+              >add_circle</motion.span>
             )}
-            <h3 className="font-display text-[3rem] leading-none text-on-surface tracking-wide uppercase mt-2">Create Room</h3>
-            <p className="font-timer-mono text-label-sm text-on-surface-variant mt-3">HOST A NEW WARD</p>
-          </button>
+            <h3 className="font-display text-[2.5rem] md:text-[3rem] leading-none text-on-surface tracking-wide uppercase mt-2 relative z-10 glow-text-primary">Create Room</h3>
+            <p className="font-timer-mono text-label-sm text-on-surface-variant mt-3 uppercase tracking-widest relative z-10 opacity-60">Host a new ward</p>
+          </motion.button>
 
           {/* Join Room Card */}
-          <div className="group relative bg-surface border border-border-default rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all duration-300 focus-within:border-glow-active focus-within:-translate-y-1 overflow-hidden">
-            <div className="absolute inset-0 bg-primary-container opacity-0 group-hover:opacity-5 transition-opacity"></div>
-            <button 
+          <motion.div 
+            className="glass-card group relative p-8 flex flex-col items-center justify-center text-center overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+          >
+            {/* Hover gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-tertiary/0 via-transparent to-tertiary/0 group-hover:from-tertiary/5 group-hover:to-tertiary/5 transition-all duration-500" />
+            
+            {/* Top accent line */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-tertiary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            <motion.button 
               onClick={handleJoinRoom}
               disabled={loading}
-              className="flex flex-col items-center w-full"
+              className="flex flex-col items-center w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              whileTap={{ scale: 0.98 }}
             >
               {loading && roomCode ? (
-                <span className="material-symbols-outlined text-primary mb-4 animate-spin" style={{ fontSize: '64px' }}>refresh</span>
+                <motion.span 
+                  className="material-symbols-outlined text-tertiary mb-4"
+                  style={{ fontSize: '56px' }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                >refresh</motion.span>
               ) : (
-                <span className="material-symbols-outlined text-primary mb-4 hover:scale-110 transition-transform" style={{ fontSize: '64px' }}>login</span>
+                <motion.span 
+                  className="material-symbols-outlined text-tertiary mb-4 relative z-10"
+                  style={{ fontSize: '56px', fontVariationSettings: "'FILL' 1" }}
+                  whileHover={{ x: 5 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                >login</motion.span>
               )}
-              <h3 className="font-display text-[3rem] leading-none text-on-surface tracking-wide uppercase mt-2">Join Room</h3>
-            </button>
-            <div className="w-full mt-5 flex justify-center relative z-20">
+              <h3 className="font-display text-[2.5rem] md:text-[3rem] leading-none text-on-surface tracking-wide uppercase mt-2 relative z-10">Join Room</h3>
+            </motion.button>
+            <div className="w-full mt-5 flex flex-col items-center relative z-20">
+              <span className="font-timer-mono text-[10px] text-on-surface-variant/50 uppercase tracking-widest mb-1">Enter Code</span>
               <input 
-                className="bg-void border-b border-border-default text-center font-timer-mono text-timer-mono text-primary focus:outline-none focus:border-primary placeholder-on-surface-variant bg-transparent w-full max-w-[200px] uppercase py-2" 
-                placeholder="ENTER CODE" 
+                className="bg-transparent border-b-2 border-outline-variant text-center font-timer-mono text-[1.5rem] text-tertiary focus:outline-none focus:border-tertiary placeholder-on-surface-variant/40 w-full max-w-[200px] uppercase py-2 transition-all duration-300 tracking-widest" 
+                placeholder="_ _ _ _ _" 
                 type="text"
                 value={roomCode}
                 onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
@@ -239,28 +373,41 @@ export default function HomePage() {
                 onKeyDown={(e) => e.key === 'Enter' && handleJoinRoom()}
               />
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Character Selection Bottom Row */}
-        <div className="w-full max-w-5xl mt-auto">
+        {/* Character Selection */}
+        <motion.div 
+          variants={itemVariants}
+          className="w-full max-w-5xl mt-auto"
+        >
           <div className="flex items-center justify-between mb-8">
-            <h3 className="font-label-sm text-label-sm text-primary uppercase tracking-widest">Select Patient Profile</h3>
-            <div className="h-px bg-border-default flex-grow ml-4"></div>
+            <h3 className="font-label-sm text-label-sm text-primary uppercase tracking-widest flex items-center gap-2">
+              <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>person_search</span>
+              Select Patient Profile
+            </h3>
+            <div className="h-px bg-gradient-to-r from-outline-variant to-transparent flex-grow ml-4"></div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 justify-items-center">
-            {CHARACTER_LIST.map((c) => (
-              <CharacterCard
+            {CHARACTER_LIST.map((c, i) => (
+              <motion.div
                 key={c.type}
-                character={c}
-                selected={character === c.type}
-                onSelect={() => setCharacter(c.type)}
-                disabled={loading}
-              />
+                custom={i}
+                variants={characterVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <CharacterCard
+                  character={c}
+                  selected={character === c.type}
+                  onSelect={() => setCharacter(c.type)}
+                  disabled={loading}
+                />
+              </motion.div>
             ))}
           </div>
-        </div>
-      </main>
+        </motion.div>
+      </motion.main>
     </div>
   );
 }
