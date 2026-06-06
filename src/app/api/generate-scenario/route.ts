@@ -4,6 +4,8 @@ import { model } from '@/lib/ai/client';
 import { SCENARIO_SYSTEM_PROMPT, buildScenarioUserPrompt } from '@/lib/ai/prompts';
 import { getSupabaseServer } from '@/lib/supabase/server';
 
+export const runtime = 'edge';
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();

@@ -3,6 +3,8 @@ import { generateText } from 'ai';
 import { model } from '@/lib/ai/client';
 import { LIFELINE_SYSTEM_PROMPT, buildLifelinePrompt } from '@/lib/ai/prompts';
 
+export const runtime = 'edge';
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();

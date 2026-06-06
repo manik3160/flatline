@@ -6,6 +6,8 @@ import { getSupabaseServer } from '@/lib/supabase/server';
 import { calculateScore } from '@/lib/game/scoring';
 import type { VerdictTier, CharacterType } from '@/types';
 
+export const runtime = 'edge';
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
