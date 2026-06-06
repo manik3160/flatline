@@ -1,7 +1,9 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { PlayerChip } from '@/components/ui/PlayerChip';
+import { EkgLine } from '@/components/ui/EkgLine';
 import { useGameStore } from '@/store/gameStore';
 import type { ScenarioCategory } from '@/types';
 import { useState } from 'react';
@@ -23,7 +25,8 @@ interface LobbyScreenProps {
 }
 
 export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps) {
-  const { roomCode, players, isHost, category, totalRounds, playerName, character } = useGameStore();
+  const router = useRouter();
+  const { roomCode, players, isHost, category, totalRounds, playerName, character, reset } = useGameStore();
 
   const activePlayers = players.filter((p) => p.is_active);
   const canStart = activePlayers.length >= 2;
@@ -36,6 +39,13 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleExit = () => {
+    if (confirm('Are you sure you want to leave the ward?')) {
+      reset();
+      router.push('/');
+    }
+  };
+
   // Helper for character images (fallback if needed)
   const imageUrls: Record<string, string> = {
     topper: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBJ2bTjcXZ77vPtByDLk626LOc4r3jNzvgPH32VUj7T5I0xzore0v34Xe7WQ6kuX5U7bU4jX-p4405nEza0BslLIILqnVa1aBgVmmS6sIcXQQPvwqPgTgnG474hc0pH0MROM3-QOoe5UdLXpHSklqLZuLZ0S7D5X2eSIQay0YFx3Z4nhuau94fRSka6NRJk2Mpt-LUEwhK1SyxFW517lVI6dz--PFdA-zKX4zmRvjhbkybXjWC2p6xPaOYooSuNPB76zdy7ET48j0k',
@@ -45,50 +55,53 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
   };
 
   return (
-    <div className="flex flex-col items-center pt-16 pb-24 md:pb-8 w-full min-h-screen relative overflow-x-hidden">
+    <div className="flex flex-col items-center pt-16 pb-32 md:pb-12 w-full min-h-[100dvh] relative overflow-x-hidden">
       {/* TopAppBar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-2 border-b border-outline-variant bg-void">
         <div className="font-display text-display-xl text-primary tracking-tighter uppercase" style={{ fontSize: '48px', lineHeight: 1 }}>FLATLINE</div>
         <div className="flex gap-4">
-          <button className="text-primary hover:text-primary-container transition-colors p-2 rounded-full">
+          <button onClick={() => alert('Settings coming soon!')} className="text-primary hover:text-primary-container transition-colors p-2 rounded-full">
             <span className="material-symbols-outlined">settings</span>
           </button>
-          <button className="text-primary hover:text-primary-container transition-colors p-2 rounded-full">
+          <button onClick={() => alert('Emergency actions coming soon!')} className="text-primary hover:text-primary-container transition-colors p-2 rounded-full">
             <span className="material-symbols-outlined">emergency</span>
           </button>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="w-full max-w-4xl px-gutter flex-grow flex flex-col gap-margin-desktop mt-8 md:pl-64">
+      <main 
+        className="w-full max-w-5xl flex-grow flex flex-col items-center justify-start shrink-0 mt-8 md:pl-72"
+        style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem', rowGap: '4rem' }}
+      >
         {/* Room Code Section */}
-        <section className="flex flex-col items-center gap-4 w-full">
-          <div className="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-widest">Room Code</div>
-          <div className="relative w-full max-w-md">
-            <div className="absolute inset-0 bg-primary opacity-5 blur-xl rounded-lg"></div>
-            <div className="relative border-2 border-dashed border-primary rounded-lg p-6 bg-surface-container-lowest flex flex-col items-center justify-center gap-2 border-glow">
-              <h1 className="font-timer-mono text-timer-mono text-primary tracking-[0.2em]">{roomCode}</h1>
+        <section className="flex flex-col items-center gap-6 w-full max-w-2xl shrink-0">
+          <div className="text-on-surface-variant font-label-sm text-[12px] uppercase tracking-widest opacity-80">Room Code</div>
+          <div className="relative w-full">
+            <div className="absolute inset-0 bg-primary opacity-10 blur-2xl rounded-2xl"></div>
+            <div className="relative border border-primary/40 rounded-2xl p-8 bg-surface-container/40 backdrop-blur-md flex flex-col items-center justify-center gap-6 shadow-[0_0_30px_rgba(255,84,74,0.1)]">
+              <h1 className="font-display text-[5rem] md:text-[7rem] leading-none text-primary tracking-widest title-shimmer drop-shadow-lg">{roomCode}</h1>
               <button 
                 onClick={handleCopy}
-                className="flex items-center gap-2 text-primary font-label-sm text-label-sm uppercase hover:text-primary-container transition-colors mt-2 bg-surface-container-highest px-4 py-2 rounded-full"
+                className="flex items-center gap-2 text-primary font-label-sm text-[12px] uppercase hover:text-primary-container transition-colors bg-primary/10 border border-primary/20 px-6 py-3 rounded-full hover:bg-primary/20"
               >
-                <span className="material-symbols-outlined text-[16px]">{copied ? 'check' : 'content_copy'}</span>
-                {copied ? 'Copied!' : 'Share with friends'}
+                <span className="material-symbols-outlined text-[18px]">{copied ? 'check' : 'content_copy'}</span>
+                {copied ? 'Copied to Clipboard!' : 'Share with friends'}
               </button>
             </div>
           </div>
-          <div className="w-full max-w-2xl mt-4">
-            <div className="ekg-line w-full"></div>
+          <div className="w-full mt-6">
+            <EkgLine color="var(--color-primary)" animationDuration={3} height={40} />
           </div>
         </section>
 
         {/* Player List Section */}
-        <section className="w-full flex flex-col gap-6">
-          <div className="flex justify-between items-end border-b border-outline-variant pb-2">
-            <h2 className="font-display text-[48px] leading-none text-on-surface tracking-wide">PLAYERS</h2>
-            <span className="font-timer-mono text-[16px] text-tertiary">{activePlayers.length}/8</span>
+        <section className="w-full max-w-3xl flex flex-col shrink-0" style={{ gap: '2rem' }}>
+          <div className="flex justify-between items-end border-b border-outline-variant/50 pb-4">
+            <h2 className="font-display text-[3rem] md:text-[4rem] leading-none text-on-surface tracking-wide drop-shadow-md">PLAYERS</h2>
+            <span className="font-timer-mono text-[1.5rem] text-tertiary mb-2">{activePlayers.length}/8</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {activePlayers.map((player) => (
               <PlayerChip
                 key={player.id}
@@ -100,12 +113,12 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
             ))}
             {/* Fill empty slots visually to show 8 slots max, maybe just 1 waiting slot for visual clue */}
             {activePlayers.length < 8 && (
-              <div className="bg-surface-container border border-outline-variant rounded-lg p-3 flex items-center gap-4 relative overflow-hidden group opacity-60">
-                <div className="w-16 h-16 rounded-md bg-surface-container-highest border border-outline-variant overflow-hidden flex-shrink-0 relative flex items-center justify-center">
-                  <span className="material-symbols-outlined text-outline-variant text-3xl">person</span>
+              <div className="bg-surface-container/30 border-2 border-dashed border-outline-variant/30 rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group opacity-50">
+                <div className="w-16 h-16 rounded-md bg-surface-container-highest border border-outline-variant/50 overflow-hidden flex-shrink-0 relative flex items-center justify-center">
+                  <span className="material-symbols-outlined text-outline-variant/50 text-3xl">person</span>
                 </div>
                 <div className="flex-grow flex flex-col justify-center">
-                  <span className="font-body-base text-body-base text-on-surface-variant italic">Waiting...</span>
+                  <span className="font-timer-mono text-[14px] text-on-surface-variant/70 uppercase tracking-widest">Waiting for player...</span>
                 </div>
               </div>
             )}
@@ -114,26 +127,27 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
 
         {/* Host Settings Section OR Guest Waiting */}
         {isHost ? (
-          <section className="w-full bg-surface-container-low border border-outline-variant rounded-xl p-6 flex flex-col gap-6 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-tertiary opacity-50"></div>
-            <h3 className="font-label-sm text-label-sm text-tertiary uppercase tracking-widest flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px]">tune</span>
+          <section className="w-full max-w-3xl glass-card border border-tertiary/20 rounded-2xl flex flex-col relative overflow-hidden shrink-0 shadow-[0_0_40px_rgba(107,211,253,0.05)] mt-4" style={{ padding: '2rem', gap: '2rem' }}>
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-tertiary/50 to-transparent"></div>
+            <h3 className="font-label-sm text-[14px] text-tertiary uppercase tracking-widest flex items-center gap-2">
+              <span className="material-symbols-outlined text-[20px]">tune</span>
               Lobby Settings (Host Only)
             </h3>
             
             {/* Category Selector */}
-            <div className="flex flex-col gap-3">
-              <label className="font-body-base text-[14px] text-on-surface-variant">Select Category</label>
-              <div className="flex flex-wrap gap-2">
+            <div className="flex flex-col" style={{ gap: '1rem' }}>
+              <label className="font-timer-mono text-[12px] text-on-surface-variant/60 uppercase tracking-widest">Select Category</label>
+              <div className="flex flex-wrap" style={{ gap: '0.75rem' }}>
                 {CATEGORIES.map((c) => (
                   <button
                     key={c.value}
                     onClick={() => onUpdateSettings(c.value, totalRounds)}
                     className={
                       category === c.value
-                        ? "bg-primary text-on-primary font-label-sm text-label-sm px-4 py-2 rounded-full font-bold uppercase transition-colors"
-                        : "bg-surface border border-outline-variant text-on-surface-variant font-label-sm text-label-sm px-4 py-2 rounded-full uppercase hover:border-primary hover:text-primary transition-colors"
+                        ? "bg-tertiary/20 border border-tertiary text-tertiary font-label-sm text-[12px] rounded-full font-bold uppercase transition-all shadow-[0_0_15px_rgba(107,211,253,0.2)]"
+                        : "bg-surface-container/50 border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] rounded-full uppercase hover:border-tertiary/50 hover:text-tertiary transition-colors"
                     }
+                    style={{ padding: '0.625rem 1.25rem' }}
                   >
                     {c.label}
                   </button>
@@ -142,17 +156,17 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
             </div>
 
             {/* Rounds Selector */}
-            <div className="flex flex-col gap-3">
-              <label className="font-body-base text-[14px] text-on-surface-variant">Number of Rounds</label>
-              <div className="flex gap-2">
+            <div className="flex flex-col" style={{ gap: '1rem' }}>
+              <label className="font-timer-mono text-[12px] text-on-surface-variant/60 uppercase tracking-widest">Number of Rounds</label>
+              <div className="flex gap-4">
                 {[3, 5, 7].map((n) => (
                   <button
                     key={n}
                     onClick={() => onUpdateSettings(category, n)}
                     className={
                       totalRounds === n
-                        ? "bg-surface-container-highest border-2 border-primary text-primary font-timer-mono text-[20px] w-12 h-12 rounded flex items-center justify-center border-glow"
-                        : "bg-surface border border-outline-variant text-on-surface-variant font-timer-mono text-[20px] w-12 h-12 rounded flex items-center justify-center hover:border-primary transition-colors"
+                        ? "bg-tertiary/20 border border-tertiary text-tertiary font-timer-mono text-[24px] w-14 h-14 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(107,211,253,0.2)]"
+                        : "bg-surface-container/50 border border-outline-variant/50 text-on-surface-variant font-timer-mono text-[24px] w-14 h-14 rounded-xl flex items-center justify-center hover:border-tertiary/50 hover:text-tertiary transition-colors"
                     }
                   >
                     {n}
@@ -165,20 +179,20 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
             <button
               onClick={onStartGame}
               disabled={!canStart}
-              className="btn-red-flatline w-full py-4 rounded-lg font-display text-[48px] tracking-wider mt-4 relative overflow-hidden flex justify-center items-center gap-3 leading-none disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:bg-[#c00012]"
+              className="mt-6 w-full py-5 rounded-xl font-display text-[3rem] md:text-[4rem] tracking-widest relative overflow-hidden flex justify-center items-center gap-4 leading-none transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed bg-primary/20 border-2 border-primary text-primary hover:bg-primary/30 hover:shadow-[0_0_30px_rgba(255,84,74,0.3)]"
             >
-              <span>{canStart ? 'START GAME' : 'WAITING...'}</span>
-              <span className="material-symbols-outlined text-4xl">play_arrow</span>
+              <span className="relative z-10 title-shimmer drop-shadow-md">{canStart ? 'START GAME' : 'WAITING...'}</span>
+              {canStart && <span className="material-symbols-outlined text-5xl relative z-10">play_arrow</span>}
             </button>
           </section>
         ) : (
-          <section className="w-full bg-surface-container-low border border-outline-variant rounded-xl p-6 flex flex-col items-center justify-center gap-6 relative overflow-hidden min-h-[200px]">
-            <div className="absolute top-0 left-0 w-full h-1 bg-tertiary opacity-50"></div>
-            <div className="w-1/2 max-w-[200px]">
-              <div className="ekg-line w-full"></div>
+          <section className="w-full max-w-3xl glass-card border border-outline-variant/30 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden shrink-0 mt-4" style={{ padding: '3rem', gap: '2rem' }}>
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-tertiary/50 to-transparent"></div>
+            <div className="w-full max-w-md">
+              <EkgLine color="var(--color-tertiary)" animationDuration={2} height={50} />
             </div>
-            <p className="font-timer-mono text-tertiary uppercase tracking-widest text-center mt-4">
-              WAITING FOR HOST...
+            <p className="font-timer-mono text-[1.5rem] text-tertiary uppercase tracking-widest text-center">
+              WAITING FOR HOST TO START...
             </p>
           </section>
         )}
@@ -190,22 +204,25 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
           <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>group</span>
           <span className="font-label-sm text-[10px] mt-1 uppercase">Lobby</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
+        <button onClick={() => alert('Stats coming soon!')} className="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
           <span className="material-symbols-outlined">monitoring</span>
           <span className="font-label-sm text-[10px] mt-1 uppercase">Stats</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
+        <button onClick={() => alert('Archive coming soon!')} className="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
           <span className="material-symbols-outlined">history</span>
           <span className="font-label-sm text-[10px] mt-1 uppercase">Archive</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
+        <button onClick={handleExit} className="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 hover:text-on-surface transition-colors">
           <span className="material-symbols-outlined">logout</span>
           <span className="font-label-sm text-[10px] mt-1 uppercase">Exit</span>
         </button>
       </nav>
 
       {/* SideNavBar - Desktop Left */}
-      <nav className="hidden md:flex fixed left-0 top-0 h-full z-40 pt-16 flex-col bg-surface-container-lowest border-r border-outline-variant w-64">
+      <nav 
+        className="hidden md:flex fixed left-0 top-0 h-full z-40 flex-col bg-surface-container-lowest border-r border-outline-variant w-64"
+        style={{ paddingTop: '5.5rem' }}
+      >
         {/* Header */}
         <div className="p-6 border-b border-outline-variant flex flex-col gap-4">
           <div className="w-16 h-16 rounded bg-surface-container-highest border border-outline-variant overflow-hidden flex items-center justify-center">
@@ -227,15 +244,15 @@ export function LobbyScreen({ onStartGame, onUpdateSettings }: LobbyScreenProps)
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>group</span>
             <span className="font-label-sm text-label-sm uppercase">Lobby</span>
           </div>
-          <div className="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors cursor-pointer">
+          <div onClick={() => alert('Stats coming soon!')} className="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors cursor-pointer">
             <span className="material-symbols-outlined">monitoring</span>
             <span className="font-label-sm text-label-sm uppercase">Stats</span>
           </div>
-          <div className="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors cursor-pointer">
+          <div onClick={() => alert('Archive coming soon!')} className="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors cursor-pointer">
             <span className="material-symbols-outlined">history</span>
             <span className="font-label-sm text-label-sm uppercase">Archive</span>
           </div>
-          <div className="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors mt-auto cursor-pointer">
+          <div onClick={handleExit} className="flex items-center gap-4 py-3 text-on-surface-variant pl-4 hover:bg-surface-container-high hover:text-tertiary transition-colors mt-auto cursor-pointer">
             <span className="material-symbols-outlined">logout</span>
             <span className="font-label-sm text-label-sm uppercase">Exit</span>
           </div>
