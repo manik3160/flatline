@@ -46,6 +46,7 @@ export function CharacterCard({ character, selected, onSelect, disabled }: Chara
 
   return (
     <motion.button
+      type="button"
       onClick={onSelect}
       disabled={disabled}
       className={`relative group cursor-pointer flex flex-col items-center w-full ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}

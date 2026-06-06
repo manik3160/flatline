@@ -186,7 +186,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen relative overflow-hidden">
+    <div className="flex flex-col items-center justify-start min-h-[100dvh] relative overflow-x-hidden w-full">
       {/* Ambient Effects */}
       <div className="scan-line" />
       <div className="vignette" />
@@ -210,7 +210,7 @@ export default function HomePage() {
 
       {/* Main Content Canvas */}
       <motion.main 
-        className="relative z-10 flex-grow flex flex-col items-center justify-start w-full pt-12 md:pt-20 px-4 md:px-12 pb-32"
+        className="relative z-10 flex-grow flex flex-col items-center justify-start w-full pt-12 md:pt-20 px-4 md:px-12 pb-32 gap-y-12"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -218,7 +218,7 @@ export default function HomePage() {
         {/* Header Section */}
         <motion.header 
           variants={itemVariants}
-          className="flex flex-col items-center mb-6 text-center max-w-3xl mx-auto w-full"
+          className="flex flex-col items-center text-center max-w-3xl mx-auto w-full shrink-0"
         >
           <motion.div 
             className="font-display title-shimmer tracking-tighter uppercase drop-shadow-2xl select-none" 
@@ -247,7 +247,7 @@ export default function HomePage() {
         {/* Animated EKG Line */}
         <motion.div 
           variants={itemVariants}
-          className="w-full max-w-3xl my-4"
+          className="w-full max-w-3xl shrink-0"
         >
           <EkgLine 
             color="var(--color-primary)" 
@@ -264,7 +264,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-error-container/80 backdrop-blur-md text-on-error-container border border-error/40 px-6 py-3 rounded-xl mb-6 text-center w-full max-w-md font-body-base font-semibold shadow-lg shadow-error/10"
+              className="bg-error-container/80 backdrop-blur-md text-on-error-container border border-error/40 px-6 py-3 rounded-xl text-center w-full max-w-md font-body-base font-semibold shadow-lg shadow-error/10 shrink-0 mx-auto"
             >
               <span className="flex items-center justify-center gap-2">
                 <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
@@ -275,15 +275,20 @@ export default function HomePage() {
         </AnimatePresence>
 
         {/* Name Input */}
-        <motion.div variants={itemVariants} className="w-full max-w-md mb-8">
-          <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest block text-center mb-3 opacity-70">Your Name</label>
+        <motion.div variants={itemVariants} className="w-full max-w-md shrink-0">
+          <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest block text-center mb-4 opacity-70">Your Name</label>
           <div className="relative input-underline">
              <input
                className="bg-transparent border-b-2 border-outline-variant text-center font-display text-[2rem] text-primary focus:outline-none placeholder-on-surface-variant/40 w-full py-3 tracking-widest transition-all duration-300 input-glow"
                placeholder="ENTER NAME"
                type="text"
                value={name}
-               onChange={(e) => setName(e.target.value.toUpperCase())}
+               onChange={(e) => {
+                 setName(e.target.value.toUpperCase());
+                 if (error === 'Enter your name to create a room!' || error === 'Enter your name to join!') {
+                   setError('');
+                 }
+               }}
                maxLength={15}
              />
           </div>
@@ -292,10 +297,11 @@ export default function HomePage() {
         {/* Action Cards Grid */}
         <motion.div 
           variants={itemVariants}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl shrink-0"
         >
           {/* Create Room Card */}
           <motion.button 
+            type="button"
             onClick={handleCreateRoom}
             disabled={loading}
             className="glass-card group relative p-8 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
@@ -339,6 +345,7 @@ export default function HomePage() {
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-tertiary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             <motion.button 
+              type="button"
               onClick={handleJoinRoom}
               disabled={loading}
               className="flex flex-col items-center w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
@@ -379,7 +386,7 @@ export default function HomePage() {
         {/* Character Selection */}
         <motion.div 
           variants={itemVariants}
-          className="w-full max-w-5xl mt-auto"
+          className="w-full max-w-5xl shrink-0"
         >
           <div className="flex items-center justify-between mb-8">
             <h3 className="font-label-sm text-label-sm text-primary uppercase tracking-widest flex items-center gap-2">
@@ -400,7 +407,12 @@ export default function HomePage() {
                 <CharacterCard
                   character={c}
                   selected={character === c.type}
-                  onSelect={() => setCharacter(c.type)}
+                  onSelect={() => {
+                    setCharacter(c.type);
+                    if (error === 'Pick a patient profile first!') {
+                      setError('');
+                    }
+                  }}
                   disabled={loading}
                 />
               </motion.div>
